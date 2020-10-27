@@ -98,6 +98,7 @@
       </tbody>
     </template>
   </v-simple-table>
+<<<<<<< HEAD
 
   <v-card
     class="mx-auto"
@@ -134,6 +135,14 @@
       </div>
     </v-expand-transition>
   </v-card>
+=======
+      <v-btn
+        class="mr-4"
+        @click="submit"
+      >
+      submit
+    </v-btn>
+>>>>>>> 337e2df1b845e293299ba8a85df62797735359f8
   </div>
 </template>
 
@@ -161,6 +170,11 @@
           },
         ],
       }
+    },
+    methods: {
+      submit () {
+        alert(this.angle);
+      },
     },
   }
 </script>
