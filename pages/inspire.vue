@@ -11,23 +11,34 @@
         <v-row>
           <v-col cols="12">
             <header>
-              Number of Iterations
+              Iterations
             </header>
             <v-slider
               v-model="Iterations"
               :max="10"
+              :min="0"
               class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="1"
+              ticks
             >
             </v-slider>
           </v-col>
 
           <v-col cols="12">
             <header>
-              Angle of Rotation (˚)
+              Rotation (˚)
+            </header>
             <v-slider
               v-model="angle"
               :max="180"
+              :min="0"
               class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="1"
+              ticks
             >
             </v-slider>
           </v-col>
@@ -39,7 +50,12 @@
             <v-slider
               v-model="length"
               :max="10"
+              :min="0"
               class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="1"
+              ticks
             >
             </v-slider>
           </v-col>
