@@ -44,7 +44,7 @@
               Line Length
             </header>
             <v-slider
-              v-model="length"
+              v-model="line_length"
               :max="10"
               :min="0"
               class="align-left"
@@ -81,7 +81,7 @@
         </tr>
         <tr style="text-align:left">
           <td style="width:60%">Length of Initial Line</td>
-          <td>{{ length }}</td>
+          <td>{{ line_length }}</td>
         </tr>
       </tbody>
     </template>
@@ -92,11 +92,14 @@
       >
       submit
     </v-btn>
+    <canvas id="canvas" width="1000" height="1000"></canvas>
   </div>
 </template>
 
 
 <script>
+  import LSystem from 'lindenmayer'
+
   export default {
     data () {
       return {
@@ -104,12 +107,73 @@
         productions: "Y",
         iterations: 5,
         angle: 22.5,
-        length: 4,
+        line_length: 4,
       }
     },
     methods: {
       submit () {
-        alert(this.angle);
+
+        var canvas = document.getElementById('canvas')
+        var ctx = canvas.getContext("2d")
+
+        // translate to center of canvas
+        ctx.translate(canvas.width / 2, canvas.height / 4)
+
+        // now define the parameters for figure 1.24c
+
+        var angle = this.angle;
+        var iterations = this.iterations;
+        var line_length = this.line_length;
+
+        // create some variables which describe the position and orientation of the turtle
+        var x = 0;
+        var y = 0;
+        var orientation = 0;
+        // variable d describes how the step size decreases
+        var d = 100;
+        // create var state so we can call ] before [
+        var state = {
+            x: 0,
+            y: 0,
+            orientation: 0
+        };
+        // define the tree generation L-system
+        var tree = new LSystem({
+          axiom: 'F',
+          productions: {
+            'F': 'FF-[-F+F+F]+[+F-F-F]'
+          },
+          finals: {
+            '+': () => { orientation += (Math.PI/180) * angle },
+            '-': () => { orientation -= (Math.PI/180) * angle },
+            // save the current turtle position and orientation to a list
+            '[': () => { state.x = x, state.y = y, state.orientation = orientation },
+            // set the turtle's position and orientiation to most recent values from list
+            ']': () => { x = state.x, y = state.y, orientation = state.orientation, console.log("x,y,phi: ", x,y,orientation) },
+            // pass plotting instructions to the turtle
+            'F': () => {
+              // create a line
+              ctx.beginPath()
+              // start it at x,y
+              ctx.moveTo(x, y)
+              // calculate the new coordinates
+              // decrease factor d:
+              d = 50/(tree.iterations + 1)
+              // calculate
+              x += d * Math.cos(orientation)
+              y += d * Math.sin(orientation)
+              // draw a line to the new point
+              ctx.lineTo(x, y)
+              // plot the line with stroke()
+              ctx.stroke()
+              }
+          }
+        });
+
+        tree.iterate(iterations)
+        tree.final()
+
+
       },
     },
   }
