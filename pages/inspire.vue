@@ -1,11 +1,7 @@
 
 <template>
+  <div>
   <v-card class="e4">
- <!---<v-responsive
-      :style="{ background: `rgb(${red}, ${green}, ${blue})` }"
-      height="300px"
-    ></v-responsive>-->
-
     <v-card-text>
       <v-container fluid>
         <v-row>
@@ -14,7 +10,7 @@
               Iterations
             </header>
             <v-slider
-              v-model="Iterations"
+              v-model="iterations"
               :max="10"
               :min="0"
               class="align-left"
@@ -25,7 +21,7 @@
             >
             </v-slider>
           </v-col>
-
+          
           <v-col cols="12">
             <header>
               Rotation (˚)
@@ -37,7 +33,7 @@
               class="align-left"
               :thumb-size="12"
               thumb-label
-              step="1"
+              step="0.5"
               ticks
             >
             </v-slider>
@@ -45,7 +41,7 @@
 
           <v-col cols="12">
             <header>
-              Length of Initial Line
+              Line Length
             </header>
             <v-slider
               v-model="length"
@@ -63,24 +59,58 @@
       </v-container>
     </v-card-text>
   </v-card>
+
+<v-simple-table dense class="e5">
+    <template v-slot:default>
+      <tbody>
+        <tr style="text-align:left">
+          <td style="width:60%">Axiom</td>
+          <td>{{ axiom }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Productions</td>
+          <td>{{ productions }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Angle of Rotation</td>
+          <td>{{ angle }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Number of Iterations</td>
+          <td>{{ iterations }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Length of Initial Line</td>
+          <td>{{ length }}</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+  </div>
 </template>
 
-<!---
+
 <script>
   export default {
     data () {
       return {
-        red: 64,
-        green: 128,
-        blue: 0,
+        axiom: "X",
+        productions: "Y",
+        iterations: 5,
+        angle: 22.5,
+        length: 4,
       }
     },
   }
-</script>-->
+</script>
 
 <style scoped>
 .e4 {
   width: 200px;
+  margin: auto;
+}
+.e5 {
+  width: 300px;
   margin: auto;
 }
 </style>
