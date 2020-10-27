@@ -11,9 +11,10 @@
             sm="12"
           >
           <v-select
-            v-model="tree"
+            v-model="tree_selected"
             :items="tree"
             label="Tree"
+            @change="tree_change"
             return-object
           ></v-select>
       </v-col>
@@ -22,7 +23,7 @@
               Iterations
             </header>
             <v-slider
-              v-model="iterations"
+              v-model="settings.iterations"
               :max="10"
               :min="0"
               class="align-left"
@@ -39,7 +40,7 @@
               Rotation (˚)
             </header>
             <v-slider
-              v-model="angle"
+              v-model="settings.angle"
               :max="180"
               :min="0"
               class="align-left"
@@ -56,7 +57,7 @@
               Line Length
             </header>
             <v-slider
-              v-model="line_length"
+              v-model="settings.line_length"
               :max="10"
               :min="0"
               class="align-left"
@@ -77,23 +78,23 @@
       <tbody>
         <tr style="text-align:left">
           <td style="width:60%">Axiom</td>
-          <td>{{ axiom }}</td>
+          <td>{{ settings.axiom }}</td>
         </tr>
         <tr style="text-align:left">
           <td style="width:60%">Productions</td>
-          <td>{{ productions }}</td>
+          <td>{{ settings.productions }}</td>
         </tr>
         <tr style="text-align:left">
           <td style="width:60%">Angle of Rotation</td>
-          <td>{{ angle }}</td>
+          <td>{{ settings.angle }}</td>
         </tr>
         <tr style="text-align:left">
           <td style="width:60%">Number of Iterations</td>
-          <td>{{ iterations }}</td>
+          <td>{{ settings.iterations }}</td>
         </tr>
         <tr style="text-align:left">
           <td style="width:60%">Length of Initial Line</td>
-          <td>{{ line_length }}</td>
+          <td>{{ settings.line_length }}</td>
         </tr>
       </tbody>
     </template>
@@ -151,30 +152,58 @@
   export default {
     data () {
       return {
-        axiom: "X",
-        productions: "Y",
-        iterations: 5,
-        angle: 22.5,
-        line_length: 4,
+        settings: {
+          axiom: "X",
+          productions: "Y",
+          iterations: 5,
+          angle: 22.5,
+          line_length: 4,
+        },
         show_card: false,
+        tree_selected: undefined,
         tree: [
           {
             text: "Tree1",
             simple_description: "I am Tree1",
-            extended_description: "I am the most special of all the trees because I come first"
+            extended_description: "I am the most special of all the trees because I come first",
+            defaults: {
+              axiom: "X",
+              productions: "Y",
+              iterations: 2,
+              angle: 10,
+              line_length: 1,
+            }
           },
           {
             text: "Tree2",
             simple_description: "I am Tree2",
-            extended_description: "Some call me second, but I know I am the best"
+            extended_description: "Some call me second, but I know I am the best",
+            defaults: {
+              axiom: "X",
+              productions: "Y",
+              iterations: 2,
+              angle: 10,
+              line_length: 1,
+            }
           },
         ],
       }
     },
     methods: {
+      tree_change () {
+        //alert('change')
+        //self.tree
+        console.log(this.tree)
+        console.log(this.tree_selected)
+        console.log(this.settings)
+        this.settings = Object.assign({}, this.tree_selected.defaults);
+      },
       submit () {
 
         var canvas = document.getElementById('canvas')
+
+        // TODO add canvas reset
+
         var ctx = canvas.getContext("2d")
 
         // translate to center of canvas
@@ -182,9 +211,9 @@
 
         // now define the parameters for figure 1.24c
 
-        var angle = this.angle;
-        var iterations = this.iterations;
-        var line_length = this.line_length;
+        var angle = this.settings.angle;
+        var iterations = this.settings.iterations;
+        var line_length = this.settings.line_length;
 
         // create some variables which describe the position and orientation of the turtle
         var x = 0;
