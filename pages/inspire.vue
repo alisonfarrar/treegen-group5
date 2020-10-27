@@ -86,6 +86,12 @@
       </tbody>
     </template>
   </v-simple-table>
+      <v-btn
+        class="mr-4"
+        @click="submit"
+      >
+      submit
+    </v-btn>
   </div>
 </template>
 
@@ -100,6 +106,11 @@
         angle: 22.5,
         length: 4,
       }
+    },
+    methods: {
+      submit () {
+        alert(this.angle);
+      },
     },
   }
 </script>
