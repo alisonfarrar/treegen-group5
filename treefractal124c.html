@@ -23,9 +23,13 @@ var x = 0;
 var y = 0;
 var orientation = 0;
 // variable d describes how the step size decreases
-var d = 1;
+var d = 100;
 // create var state so we can call ] before [ 
-var state = [0, 0, 0];
+var state = {
+    x: 0,
+    y: 0,
+    orientation: 0
+};
 // define the tree generation L-system
 var tree = new LSystem({
   axiom: 'F',
@@ -33,29 +37,29 @@ var tree = new LSystem({
     'F': 'FF-[-F+F+F]+[+F-F-F]'
   },
   finals: {
-    '+': () => { orientation = (Math.PI/180) * angle },
-    '-': () => { orientation = (Math.PI/180) * -angle },
+    '+': () => { orientation += (Math.PI/180) * angle }, 
+    '-': () => { orientation -= (Math.PI/180) * angle },
     // save the current turtle position and orientation to a list
-    '[': () => { state = [x, y, orientation]}, 
+    '[': () => { state.x = x, state.y = y, state.orientation = orientation }, 
     // set the turtle's position and orientiation to most recent values from list
-    ']': () => { x = state[0], y = state[1], orientation = state[2]},  
+    ']': () => { x = state.x, y = state.y, orientation = state.orientation, console.log("x,y,phi: ", x,y,orientation) },  
     // pass plotting instructions to the turtle
     'F': () => {
-
       // create a line
       ctx.beginPath()
       // start it at x,y
-      ctx.moveTo(x,y)
+      ctx.moveTo(x, y)
       // calculate the new coordinates 
       // decrease factor d:
-      d = 5
+      d = 50/(tree.iterations + 1)
       // calculate 
-      x = x + d * Math.cos(orientation)
-      y = y + d * Math.sin(orientation)
+      x += d * Math.cos(orientation)
+      y += d * Math.sin(orientation)
       // draw a line to the new point 
       ctx.lineTo(x, y) 
       // plot the line with stroke()
-      ctx.stroke()}
+      ctx.stroke()
+      }
    }
 });
 
