@@ -1,6 +1,44 @@
 
 <template>
   <div>
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="red lighten-2"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          About
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          About the Project
+        </v-card-title>
+
+        <v-card-text>
+          Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes through the use of iteration and formal grammar. They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  who initially conceived them as a mathematical theoryof plant development. L-systems are based on the concept of ‘rewriting’ - the process of definingcomplex objects by successively replacing parts of a simple initial object (or ‘axiom’) using a specific set of rules. This is a simple L-system for the generation of fractal trees. These trees are built recursively by feeding the axiom through a set of production rules. We’ve provided a set of examples so you can see this system in action, but feel free to adjust the parameters to see what shapes you can generate yourself!
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   <v-card class="e4">
     <v-card-text>
       <v-container fluid>
@@ -160,6 +198,7 @@
           angle: 22.5,
           line_length: 4,
         },
+        dialog: false,
         show_card: false,
         tree_selected: undefined,
         tree: [
