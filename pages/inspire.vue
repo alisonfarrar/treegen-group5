@@ -153,8 +153,9 @@
     data () {
       return {
         settings: {
-          axiom: "X",
-          productions: "Y",
+          axiom: "'F'",
+          prod_keys: "'F'",
+          prod_values: "'FF'",
           iterations: 5,
           angle: 22.5,
           line_length: 4,
@@ -163,27 +164,42 @@
         tree_selected: undefined,
         tree: [
           {
-            text: "Tree1",
-            simple_description: "I am Tree1",
-            extended_description: "I am the most special of all the trees because I come first",
+            text: "Bifurcating Bush",
+            simple_description: "I am a bush.",
+            extended_description: "I am the most special of all the trees because I am actually a bush. Example 1.24c) from 'The Algorithmic Beauty of Plants'",
             defaults: {
-              axiom: "X",
-              productions: "Y",
-              iterations: 2,
-              angle: 10,
-              line_length: 1,
+              axiom: "'F'",
+              prod_keys: "'F'",
+              prod_values: "'FF-[-F+F+F]+[+F-F-F]'",
+              iterations: 4,
+              angle: 22.5,
+              line_length: 40,
             }
           },
           {
-            text: "Tree2",
-            simple_description: "I am Tree2",
-            extended_description: "Some call me second, but I know I am the best",
+            text: "Stabby Spear",
+            simple_description: "Don't touch me!",
+            extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
             defaults: {
-              axiom: "X",
-              productions: "Y",
-              iterations: 2,
-              angle: 10,
-              line_length: 1,
+              axiom: "'X'",
+              prod_keys: "'X', 'F'",
+              prod_values: "'F[+X][-X]FX', 'FF'",
+              iterations: 7,
+              angle: 25.7,
+              line_length: 20,
+            }
+          },
+          {
+            text: "Swaying Sweetgrass",
+            simple_description: "Pleasing to observe.",
+            extended_description: "Will tickle your nose if you get too close! Example 1.24d) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'X'",
+              prod_keys: "'X', 'F'",
+              prod_values: "'F[+X]F[-X]+X', 'FF'",
+              iterations: 7,
+              angle: 20,
+              line_length: 20,
             }
           },
         ],
@@ -218,50 +234,50 @@
         // create some variables which describe the position and orientation of the turtle
         var x = 0;
         var y = 0;
-        var orientation = 0;
-        // variable d describes how the step size decreases
-        var d = 100;
-        // create var state so we can call ] before [
-        var state = {
-            x: 0,
-            y: 0,
-            orientation: 0
-        };
+        var orientation = 11; // close to vertical
+        // create var stack which will collect states so we can call ] before [ 
+        var stack = [];
         // define the tree generation L-system
         var tree = new LSystem({
-          axiom: 'F',
-          productions: {
-            'F': 'FF-[-F+F+F]+[+F-F-F]'
-          },
           finals: {
-            '+': () => { orientation += (Math.PI/180) * angle },
-            '-': () => { orientation -= (Math.PI/180) * angle },
+            '+': () => { orientation += (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+          }, 
+            '-': () => { orientation -= (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+          },
             // save the current turtle position and orientation to a list
-            '[': () => { state.x = x, state.y = y, state.orientation = orientation },
+            '[': () => { stack.push( { 'x': x, 'y': y, 'orientation': orientation } ) }, 
             // set the turtle's position and orientiation to most recent values from list
-            ']': () => { x = state.x, y = state.y, orientation = state.orientation, console.log("x,y,phi: ", x,y,orientation) },
+            ']': () => { state = stack.pop(); x = state.x, y = state.y, orientation = state.orientation//, console.log("Popping x,y,phi: ", state)  
+          },  
             // pass plotting instructions to the turtle
             'F': () => {
               // create a line
               ctx.beginPath()
               // start it at x,y
               ctx.moveTo(x, y)
-              // calculate the new coordinates
-              // decrease factor d:
-              d = 50/(tree.iterations + 1)
-              // calculate
+              //console.log(" x, y, phi:", x, y, orientation)
+              // calculate the new coordinates 
+              // line length depends on the number of iterations
+              d = initLine/(tree.iterations + 1)
+              // calculate 
               x += d * Math.cos(orientation)
               y += d * Math.sin(orientation)
-              // draw a line to the new point
-              ctx.lineTo(x, y)
+              // draw a line to the new point 
+              ctx.lineTo(x, y) 
+              //console.log("New x, y", x, y)
               // plot the line with stroke()
               ctx.stroke()
               }
           }
         });
-
-        tree.iterate(iterations)
-        tree.final()
+        tree.setAxiom(this.settings.axiom);
+        // call setProduction for each pair given in settings
+        // setProduction accepts two strings
+        for (prod=0; prod < this.settings.prod_keys.length; i++) {
+          tree.setProduction(this.settings.prod_keys[prod], this.settings.prod_values[prod]);
+        }
+        tree.iterate(iterations);
+        tree.final();
 
 
       },
