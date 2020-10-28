@@ -11,19 +11,19 @@ var canvas = document.getElementById('canvas')
 var ctx = canvas.getContext("2d")
 
 // translate to center of canvas
-ctx.translate(canvas.width / 2, canvas.height / 2)
+ctx.translate(canvas.width / 2, canvas.height *0.60)
 
 // now define the parameters for figure 1.24c
 
 var angle = 22.5;
-var iterations = 4;
+var iterations = 5;
 var initLine = 40;
 
 // create some variables which describe the position and orientation of the turtle
 var x = 0;
 var y = 0;
 var orientation = 300;
-// create var stack which will collect states so we can call ] before [ 
+// create var stack which will collect states 
 var stack = [];
 // define the tree generation L-system
 var tree = new LSystem({
@@ -58,8 +58,9 @@ var tree = new LSystem({
       }
    }
 });
-tree.setAxiom('F');
-tree.setProduction('F', 'FF-[-F+F+F]+[+F-F-F]');
+tree.setAxiom('X');
+tree.setProduction('X', 'F-[[X]+X]+F[+FX]-X');
+tree.setProduction('F', 'FF');
 tree.iterate(iterations);
 tree.final();
 

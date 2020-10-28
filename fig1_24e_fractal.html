@@ -17,6 +17,7 @@ ctx.translate(canvas.width / 2, canvas.height *0.66)
 
 var angle = 25.7;
 var iterations = 7;
+var initLine = 20;
 
 // create some variables which describe the position and orientation of the turtle
 var x = 0;
@@ -32,11 +33,6 @@ var orientation = 11;
 var stack = [];
 // define the tree generation L-system
 var tree = new LSystem({
-  axiom: 'X',
-  productions: {
-    'X': 'F[+X][-X]FX',
-    'F': 'FF'
-  },
   finals: {
     '+': () => { orientation += (Math.PI/180) * angle//, console.log("new phi:", orientation) 
 }, 
@@ -55,8 +51,8 @@ var tree = new LSystem({
       ctx.moveTo(x, y)
       //console.log(" x, y, phi:", x, y, orientation)
       // calculate the new coordinates 
-      // decrease factor d:
-      d = 15/(tree.iterations + 1)
+      // line length depends on the number of iterations
+      d = initLine/(tree.iterations + 1)
       //d = 10
       // calculate 
       x += d * Math.cos(orientation)
@@ -69,9 +65,11 @@ var tree = new LSystem({
       }
    }
 });
-
-tree.iterate(iterations)
-tree.final()
+tree.setAxiom('X');
+tree.setProduction('X', 'F[+X][-X]FX');
+tree.setProduction('F', 'FF');
+tree.iterate(iterations);
+tree.final();
 </script>
 
 
