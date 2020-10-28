@@ -21,15 +21,9 @@ var iterations = 4;
 // create some variables which describe the position and orientation of the turtle
 var x = 0;
 var y = 0;
-var orientation = 0;
-// variable d describes how the step size decreases
-var d = 50;
-// create var state so we can call ] before [ 
-var state = {
-    x: 0,
-    y: 0,
-    orientation: 0
-};
+var orientation = 300;
+// create var stack which will collect states so we can call ] before [ 
+var stack = [];
 // define the tree generation L-system
 var tree = new LSystem({
   axiom: 'F',
@@ -37,19 +31,22 @@ var tree = new LSystem({
     'F': 'FF-[-F+F+F]+[+F-F-F]'
   },
   finals: {
-    '+': () => { orientation += (Math.PI/180) * angle, console.log("new phi:", orientation) }, 
-    '-': () => { orientation -= (Math.PI/180) * angle, console.log("new phi:", orientation) },
+    '+': () => { orientation += (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+  }, 
+    '-': () => { orientation -= (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+  },
     // save the current turtle position and orientation to a list
-    '[': () => { state.x = x, state.y = y, state.orientation = orientation, console.log("Saving x,y,phi: ", state) }, 
+    '[': () => { stack.push( { 'x': x, 'y': y, 'orientation': orientation } ) }, 
     // set the turtle's position and orientiation to most recent values from list
-    ']': () => { x = state.x, y = state.y, orientation = state.orientation, console.log("Popping x,y,phi: ", state) },  
+    ']': () => { state = stack.pop(); x = state.x, y = state.y, orientation = state.orientation//, console.log("Popping x,y,phi: ", state)  
+  },  
     // pass plotting instructions to the turtle
     'F': () => {
       // create a line
       ctx.beginPath()
       // start it at x,y
       ctx.moveTo(x, y)
-      console.log(" x, y, phi:", x, y, orientation)
+      //console.log(" x, y, phi:", x, y, orientation)
       // calculate the new coordinates 
       // decrease factor d:
       d = 10
@@ -58,7 +55,7 @@ var tree = new LSystem({
       y += d * Math.sin(orientation)
       // draw a line to the new point 
       ctx.lineTo(x, y) 
-      console.log("New x, y", x, y)
+      //console.log("New x, y", x, y)
       // plot the line with stroke()
       ctx.stroke()
       }
