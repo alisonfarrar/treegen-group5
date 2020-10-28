@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "treegen",
   "version": "1.0.0",
   "private": true,
@@ -11,7 +12,15 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "eslint": "^7.12.0",
+    "lindenmayer": "^1.5.4",
     "nuxt": "^2.14.5"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",
