@@ -179,7 +179,7 @@
           {
             text: "Stabby Spear",
             simple_description: "Don't touch me!",
-            extended_description: "Some call me dangerous, but I know I am the best",
+            extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'X'",
               prod_keys: "'X', 'F'",
@@ -192,7 +192,7 @@
           {
             text: "Swaying Sweetgrass",
             simple_description: "Pleasing to observe.",
-            extended_description: "Will tickle your nose if you get too close!",
+            extended_description: "Will tickle your nose if you get too close! Example 1.24d) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'X'",
               prod_keys: "'X', 'F'",
