@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](undefined)
+[![BCH compliance](https://bettercodehub.com/edge/badge/alisonfarrar/treegen-group5?branch=master)](https://bettercodehub.com/)
 
 # TreeGen
 >TreeGen invites you into the wonderful world of fractal trees. Have a play around, and maybe learn a little bit about set theory and plant development!
