@@ -11,6 +11,7 @@
           dark
           v-bind="attrs"
           v-on="on"
+          id="btn_about"
         >
           About
         </v-btn>
@@ -175,10 +176,11 @@
       <v-btn
         class="mr-4"
         @click="submit"
+        id="btn_submit"
       >
       submit
     </v-btn>
-    <canvas id="canvas" width="1000" height="1000"></canvas>
+    <canvas ref="lcanvas" id="canvas" width="1000" height="1000"></canvas>
   </div>
 </template>
 
@@ -281,7 +283,8 @@
       },
       submit () {
 
-        var canvas = document.getElementById('canvas')
+        //var canvas = document.getElementById('canvas')
+        var canvas = this.$refs.lcanvas
 
         // TODO add canvas reset
 
