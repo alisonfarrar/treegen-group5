@@ -1,6 +1,6 @@
 [![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](undefined)
 
-[![alisonfarrar](https://circleci.com/gh/alisonfarrar/treegen-group5/.svg?style=svg)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
+[![CircleCI](https://circleci.com/gh/alisonfarrar/treegen-group5/.svg?style=svg)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
 
 # TreeGen
 >TreeGen invites you into the wonderful world of fractal trees. Have a play around, and maybe learn a little bit about set theory and plant development!
