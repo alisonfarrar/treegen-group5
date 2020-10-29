@@ -6,7 +6,7 @@ describe('Index', () => {
         const wrapper = mount(Index, {
             stubs: [
                 'logo',
-                'vuetfy-logo',
+                'vuetify-logo',
                 'v-btn',
                 'v-row',
                 'v-layout',
