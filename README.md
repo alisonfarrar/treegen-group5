@@ -3,7 +3,7 @@
 # TreeGen
 >TreeGen invites you into the wonderful world of fractal trees. Have a play around, and maybe learn a little bit about set theory and plant development!
 
-[Check it out here!](#TODO add link to web app)
+[Check it out here!](https://alisonfarrar.github.io/treegen-group5/)
 
 TreeGen is a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and created with [Nuxt.js](https://nuxtjs.org/guides/features/nuxt-components). It features: 
 * Multiple preset trees showing you the diversity of fractal trees!
