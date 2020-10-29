@@ -1,19 +1,362 @@
+
 <template>
-  <v-layout>
-    <v-flex class="text-center">
-      <img
-        src="/v.png"
-        alt="Vuetify.js"
-        class="mb-5"
+  <div>
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="red lighten-2"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          About
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          About the Project
+        </v-card-title>
+
+        <v-card-text>
+          Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes through the use of iteration and formal grammar. They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  who initially conceived them as a mathematical theoryof plant development. L-systems are based on the concept of ‘rewriting’ - the process of definingcomplex objects by successively replacing parts of a simple initial object (or ‘axiom’) using a specific set of rules. This is a simple L-system for the generation of fractal trees. These trees are built recursively by feeding the axiom through a set of production rules. We’ve provided a set of examples so you can see this system in action, but feel free to adjust the parameters to see what shapes you can generate yourself!
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  <v-card class="e4">
+    <v-card-text>
+      <v-container fluid>
+        <v-row>
+          <v-col
+            class="d-flex"
+            cols="12"
+            sm="12"
+          >
+          <v-select
+            v-model="tree_selected"
+            :items="tree"
+            label="Tree"
+            @change="tree_change"
+            return-object
+          ></v-select>
+      </v-col>
+          <v-col cols="12">
+            <header>
+              Iterations
+            </header>
+            <v-slider
+              v-model="settings.iterations"
+              :max="10"
+              :min="0"
+              class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="1"
+              ticks
+            >
+            </v-slider>
+          </v-col>
+
+          <v-col cols="12">
+            <header>
+              Rotation (˚)
+            </header>
+            <v-slider
+              v-model="settings.angle"
+              :max="180"
+              :min="0"
+              class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="0.5"
+              ticks
+            >
+            </v-slider>
+          </v-col>
+
+          <v-col cols="12">
+            <header>
+              Line Length
+            </header>
+            <v-slider
+              v-model="settings.line_length"
+              :max="10"
+              :min="0"
+              class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="1"
+              ticks
+            >
+            </v-slider>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+<v-simple-table dense class="e5">
+    <template v-slot:default>
+      <tbody>
+        <tr style="text-align:left">
+          <td style="width:60%">Axiom</td>
+          <td>{{ settings.axiom }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Productions</td>
+          <td>{{ settings.productions }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Angle of Rotation</td>
+          <td>{{ settings.angle }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Number of Iterations</td>
+          <td>{{ settings.iterations }}</td>
+        </tr>
+        <tr style="text-align:left">
+          <td style="width:60%">Length of Initial Line</td>
+          <td>{{ settings.line_length }}</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+  <v-card
+    class="mx-auto"
+    max-width="344"
+    outlined
+  >
+    <v-card-title>
+      {{ tree.text }}
+    </v-card-title>
+
+    <v-card-subtitle>
+      {{ tree.simple_description }}
+    </v-card-subtitle>
+
+    <v-card-actions>
+      <v-btn
+        color="orange lighten-2"
+        outlined
+        rounded
+        text
+        @click="show_card = !show_card"
       >
-      <blockquote class="blockquote">
-        &#8220;First, solve the problem. Then, write the code.&#8221;
-        <footer>
-          <small>
-            <em>&mdash;John Johnson</em>
-          </small>
-        </footer>
-      </blockquote>
-    </v-flex>
-  </v-layout>
+        Details
+      </v-btn>
+    </v-card-actions>
+
+    <v-expand-transition>
+      <div v-show="show_card">
+        <v-divider></v-divider>
+
+        <v-card-text>
+          {{ tree.extended_description }}
+        </v-card-text>
+      </div>
+    </v-expand-transition>
+  </v-card>
+      <v-btn
+        class="mr-4"
+        @click="submit"
+      >
+      submit
+    </v-btn>
+    <canvas id="canvas" width="1000" height="1000"></canvas>
+  </div>
 </template>
+
+
+<!--TODO: Group script parameters together-->
+<script>
+  import LSystem from 'lindenmayer'
+
+  export default {
+    data () {
+      return {
+        settings: {
+          axiom: "'F'",
+          prod_keys: "'F'",
+          prod_values: "'FF'",
+          iterations: 5,
+          angle: 22.5,
+          line_length: 4,
+        },
+        dialog: false,
+        show_card: false,
+        tree_selected: undefined,
+        tree: [
+          {
+            text: "Bifurcating Bush",
+            simple_description: "I am a bush.",
+            extended_description: "I am the most special of all the trees because I am actually a bush. Example 1.24c) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'F'",
+              prod_keys: "'F'",
+              prod_values: "'FF-[-F+F+F]+[+F-F-F]'",
+              iterations: 4,
+              angle: 22.5,
+              line_length: 40,
+            }
+          },
+          {
+            text: "Stabby Spear",
+            simple_description: "Don't touch me!",
+            extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'X'",
+              prod_keys: "'X', 'F'",
+              prod_values: "'F[+X][-X]FX', 'FF'",
+              iterations: 7,
+              angle: 25.7,
+              line_length: 20,
+            }
+          },
+          {
+            text: "Swaying Sweetgrass",
+            simple_description: "Pleasing to observe.",
+            extended_description: "Will tickle your nose if you get too close! Example 1.24d) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'X'",
+              prod_keys: "'X', 'F'",
+              prod_values: "'F[+X]F[-X]+X', 'FF'",
+              iterations: 7,
+              angle: 20,
+              line_length: 20,
+              }
+            },
+            {
+            text: "Budding Branch",
+            simple_description: "Spring is here!",
+            extended_description: "Soon I will be covered in leaves! Example 1.24a) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'F'",
+              prod_keys: "'F'",
+              prod_values: "'F[+F]F[-F]F'",
+              iterations: 5,
+              angle: 25.7,
+              line_length: 20,
+              }
+            },
+            {
+            text: "Windswept Tuft",
+            simple_description: "Watch me move in the wind!",
+            extended_description: "The autumn storms have arrived! Example 1.24b) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'F'",
+              prod_keys: "'F'",
+              prod_values: "'F[+F]F[-F][F]'",
+              iterations: 5,
+              angle: 20,
+              line_length: 40,
+            }
+          },
+        ],
+      }
+    },
+    methods: {
+      tree_change () {
+        //alert('change')
+        //self.tree
+        console.log(this.tree)
+        console.log(this.tree_selected)
+        console.log(this.settings)
+        this.settings = Object.assign({}, this.tree_selected.defaults);
+      },
+      submit () {
+
+        var canvas = document.getElementById('canvas')
+
+        // TODO add canvas reset
+
+        var ctx = canvas.getContext("2d")
+
+        // translate to center of canvas
+        ctx.translate(canvas.width / 2, canvas.height / 4)
+
+        // now define the parameters for figure 1.24c
+
+        var angle = this.settings.angle;
+        var iterations = this.settings.iterations;
+        var line_length = this.settings.line_length;
+
+        // create some variables which describe the position and orientation of the turtle
+        var x = 0;
+        var y = 0;
+        var orientation = 11; // close to vertical
+        // create var stack which will collect states so we can call ] before [ 
+        var stack = [];
+        // define the tree generation L-system
+        var tree = new LSystem({
+          finals: {
+            '+': () => { orientation += (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+          }, 
+            '-': () => { orientation -= (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+          },
+            // save the current turtle position and orientation to a list
+            '[': () => { stack.push( { 'x': x, 'y': y, 'orientation': orientation } ) }, 
+            // set the turtle's position and orientiation to most recent values from list
+            ']': () => { state = stack.pop(); x = state.x, y = state.y, orientation = state.orientation//, console.log("Popping x,y,phi: ", state)  
+          },  
+            // pass plotting instructions to the turtle
+            'F': () => {
+              // create a line
+              ctx.beginPath()
+              // start it at x,y
+              ctx.moveTo(x, y)
+              //console.log(" x, y, phi:", x, y, orientation)
+              // calculate the new coordinates 
+              // line length depends on the number of iterations
+              d = initLine/(tree.iterations + 1)
+              // calculate 
+              x += d * Math.cos(orientation)
+              y += d * Math.sin(orientation)
+              // draw a line to the new point 
+              ctx.lineTo(x, y) 
+              //console.log("New x, y", x, y)
+              // plot the line with stroke()
+              ctx.stroke()
+              }
+          }
+        });
+        tree.setAxiom(this.settings.axiom);
+        // call setProduction for each pair given in settings
+        // setProduction accepts two strings
+        for (prod=0; prod < this.settings.prod_keys.length; i++) {
+          tree.setProduction(this.settings.prod_keys[prod], this.settings.prod_values[prod]);
+        }
+        tree.iterate(iterations);
+        tree.final();
+
+
+      },
+    },
+  }
+</script>
+
+<style scoped>
+.e4 {
+  width: 200px;
+  margin: auto;
+}
+.e5 {
+  width: 300px;
+  margin: auto;
+}
+</style>
