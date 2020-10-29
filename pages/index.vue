@@ -114,8 +114,8 @@
                         <v-sheet rounded="lg" min-height="70vh">
                       <canvas
                         id="canvas"
-                        width="50vh"
-                        height="80vh"
+                        width="300vw"
+                        height="500vw"
                         style="border: 1px solid black"
                       >
                       </canvas>
