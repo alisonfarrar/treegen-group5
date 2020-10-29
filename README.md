@@ -1,13 +1,13 @@
 [![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](undefined)
 
-[![CircleCI](https://circleci.com/gh/alisonfarrar/treegen-group5/.svg?style=svg)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
+[![CircleCI Build Status](https://circleci.com/gh/alisonfarrar/treegen-group5.svg?style=shield)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
 
 # TreeGen
 >TreeGen invites you into the wonderful world of fractal trees. Have a play around, and maybe learn a little bit about set theory and plant development!
 
 [Check it out here!](https://alisonfarrar.github.io/treegen-group5/)
 
-TreeGen is a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and created with [Nuxt.js](https://nuxtjs.org/guides/features/nuxt-components). It features: 
+This is the public repository for TreeGen, a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and created with [Nuxt.js](https://nuxtjs.org/guides/features/nuxt-components). It features: 
 * Multiple preset trees showing you the diversity of fractal trees!
 * The option to modify the axiom, productions, and other parameters that generate each tree!
 * Cool info about the grammar of fractals and the theory behind L-Systems!
