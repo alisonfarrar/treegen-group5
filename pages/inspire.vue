@@ -239,6 +239,7 @@
               iterations: 7,
               angle: 20,
               line_length: 20,
+              }
             },
             {
             text: "Budding Branch",
@@ -251,6 +252,7 @@
               iterations: 5,
               angle: 25.7,
               line_length: 20,
+              }
             },
             {
             text: "Windswept Tuft",
