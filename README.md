@@ -15,13 +15,7 @@ TreeGen is a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and c
 Thank you for joining us to work on this project! We hope that here you will find useful information to help you get started. If you think of anything that should be added, feel free to create an issue and propose the change. For more information on the tools we used, please check out our [project wiki](https://github.com/alisonfarrar/treegen-group5/wiki/Overview) which contains links to many useful pages.
 
 ## Setting up virtual environment
-To avoid confusion about which package versions are being used, it's a good idea to work in a virtual environment.
-Here's how to set one up:
-
-```bash
-python3 -m venv venv # the second venv is the name of the environment
-source venv/bin/activate
-```
+#TODO - is this needed?
 
 ## Build Setup
 To run the web application on your local machine for development purposes, navigate to the root directory of the application. Then use npm to install dependencies stored in the package.json file and run the web app on a local test server:
