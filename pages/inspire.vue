@@ -239,6 +239,32 @@
               iterations: 7,
               angle: 20,
               line_length: 20,
+              }
+            },
+            {
+            text: "Budding Branch",
+            simple_description: "Spring is here!",
+            extended_description: "Soon I will be covered in leaves! Example 1.24a) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'F'",
+              prod_keys: "'F'",
+              prod_values: "'F[+F]F[-F]F'",
+              iterations: 5,
+              angle: 25.7,
+              line_length: 20,
+              }
+            },
+            {
+            text: "Windswept Tuft",
+            simple_description: "Watch me move in the wind!",
+            extended_description: "The autumn storms have arrived! Example 1.24b) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'F'",
+              prod_keys: "'F'",
+              prod_values: "'F[+F]F[-F][F]'",
+              iterations: 5,
+              angle: 20,
+              line_length: 40,
             }
           },
         ],
