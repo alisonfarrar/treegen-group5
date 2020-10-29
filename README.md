@@ -1,5 +1,7 @@
 [![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](undefined)
 
+[![alisonfarrar](https://circleci.com/gh/alisonfarrar/treegen-group5/.svg?style=svg)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
+
 # TreeGen
 >TreeGen invites you into the wonderful world of fractal trees. Have a play around, and maybe learn a little bit about set theory and plant development!
 
@@ -32,7 +34,7 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-The web app is deployed automatically as part of continuous integration workflow, so there shouldn't be any need for you to do this.
+The web app is deployed automatically as part of continuous integration workflow, so there shouldn't be any need for you to do this manually.
 
 ## Workflow 
 Pick an issue to work on and assign yourself to that issue. 
@@ -77,8 +79,10 @@ If the changes you have made require new packages, you should add these to the `
 ## Continuous Integration and testing
 Our automatic testing workflow is handled by CircleCI and can be edited in `config.yml`. It checks code coverage using [CodeCov](https://codecov.io), runs our test suite, and deploys the web app to GitHub Pages. 
 
-## Style guide
+## Browser compatibility
+TreeGen is built on the Vuetify framework and is compatible with most common browsers including Chrome, Firefox, Safari 10+ and Edge. If you come across any problems using TreeGen on one of these browsers, please flag this up by creating an issue and labelling it "bug". Please include your browser version, your hardware and operating system version, and the steps needed to reproduce the problem, if applicable.   
 
+## Style guide
 ### Code formatting and linting
 We recommend using the [Prettier](https://prettier.io/docs/en/index.html) code formatter. This reprints your code so that it looks cleaner, takes care of linting, and enforces a consistent style across the development team. To enable linting with Prettier in Visual Studio Code, first install the Prettier extension by searching for "Prettier - Code formatter" in the extensions tab. 
 
