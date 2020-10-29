@@ -22,10 +22,19 @@
         </v-card-title>
 
         <v-card-text>
-          Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes through the use of iteration and formal grammar. They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  who initially conceived them as a mathematical theoryof plant development. L-systems are based on the concept of ‘rewriting’ - the process of definingcomplex objects by successively replacing parts of a simple initial object (or ‘axiom’) using a specific set of rules. This is a simple L-system for the generation of fractal trees. These trees are built recursively by feeding the axiom through a set of production rules. We’ve provided a set of examples so you can see this system in action, but feel free to adjust the parameters to see what shapes you can generate yourself!
+          <p></p>
+          <p> Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes 
+            through the use of iteration and formal grammar. </p> 
+          <p> They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  
+            who initially conceived them as a mathematical theory of plant development. 
+            L-systems are based on the concept of ‘rewriting’ - the process of definingcomplex objects 
+            by successively replacing parts of a simple initial object (or ‘axiom’) 
+            using a specific set of rules. </p> 
+          <p> This is a simple L-system for the generation of fractal trees. 
+            These trees are built recursively by feeding the axiom through a set of production rules. 
+            We’ve provided a set of examples so you can see this system in action, but feel free to 
+            adjust the parameters to see what shapes you can generate yourself! </p>
         </v-card-text>
-
-        <v-divider></v-divider>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -115,23 +124,24 @@
     <template v-slot:default>
       <tbody>
         <tr style="text-align:left">
-          <td style="width:60%">Axiom</td>
+          <td style="width:60%">Axiom:</td>
           <td>{{ settings.axiom }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Productions</td>
-          <td>{{ settings.productions }}</td>
+          <td style="width:60%">Productions:</td>
+          <!-- TODO: this needs to be updated to show the productions -->
+          <td>{{ settings.productions }}</td>  
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Angle of Rotation</td>
-          <td>{{ settings.angle }}</td>
+          <td style="width:60%">Angle of Rotation:</td>
+          <td>{{ settings.angle + "°" }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Number of Iterations</td>
+          <td style="width:60%">Number of Iterations:</td>
           <td>{{ settings.iterations }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Length of Initial Line</td>
+          <td style="width:60%">Length of Initial Line:</td>
           <td>{{ settings.line_length }}</td>
         </tr>
       </tbody>
@@ -178,7 +188,8 @@
       >
       submit
     </v-btn>
-    <canvas id="canvas" width="1000" height="1000"></canvas>
+    <canvas id="canvas" width="1000" height="1000" style="border: 1px solid black;">
+    </canvas>
   </div>
 </template>
 
@@ -305,14 +316,14 @@
         // define the tree generation L-system
         var tree = new LSystem({
           finals: {
-            '+': () => { orientation += (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+            '+': () => { orientation += (Math.PI/180) * angle
           }, 
-            '-': () => { orientation -= (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+            '-': () => { orientation -= (Math.PI/180) * angle 
           },
             // save the current turtle position and orientation to a list
             '[': () => { stack.push( { 'x': x, 'y': y, 'orientation': orientation } ) }, 
             // set the turtle's position and orientiation to most recent values from list
-            ']': () => { state = stack.pop(); x = state.x, y = state.y, orientation = state.orientation//, console.log("Popping x,y,phi: ", state)  
+            ']': () => { state = stack.pop(); x = state.x, y = state.y, orientation = state.orientation
           },  
             // pass plotting instructions to the turtle
             'F': () => {
@@ -323,7 +334,7 @@
               //console.log(" x, y, phi:", x, y, orientation)
               // calculate the new coordinates 
               // line length depends on the number of iterations
-              d = initLine/(tree.iterations + 1)
+              var d = line_length/(tree.iterations + 1)
               // calculate 
               x += d * Math.cos(orientation)
               y += d * Math.sin(orientation)
@@ -338,13 +349,12 @@
         tree.setAxiom(this.settings.axiom);
         // call setProduction for each pair given in settings
         // setProduction accepts two strings
-        for (prod=0; prod < this.settings.prod_keys.length; i++) {
+        var prod;
+        for (prod=0; prod < this.settings.prod_keys.length; prod++) {
           tree.setProduction(this.settings.prod_keys[prod], this.settings.prod_values[prod]);
         }
         tree.iterate(iterations);
         tree.final();
-
-
       },
     },
   }
