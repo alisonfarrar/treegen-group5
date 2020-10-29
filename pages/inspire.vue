@@ -153,11 +153,11 @@
     outlined
   >
     <v-card-title>
-      {{ tree.text }}
+      {{ this.tree_selected.text }}
     </v-card-title>
 
     <v-card-subtitle>
-      {{ tree.simple_description }}
+      {{ this.tree_selected.simple_description }}
     </v-card-subtitle>
 
     <v-card-actions>
@@ -177,7 +177,7 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          {{ tree.extended_description }}
+          {{ this.tree_selected.extended_description }}
         </v-card-text>
       </div>
     </v-expand-transition>
@@ -196,6 +196,9 @@
     data () {
       return {
         settings: {
+          text: "Tree",
+          simple_description: "Please select a tree.",
+          extended_description: "There are many suggested trees to choose from in the drop-down list.",
           axiom: "'F'",
           prod_keys: "'F'",
           prod_values: "'FF'",
@@ -205,7 +208,7 @@
         },
         dialog: false,
         show_card: false,
-        tree_selected: undefined,
+        tree_selected: Object.assign({}, this.settings),
         tree: [
           {
             text: "Bifurcating Bush",
