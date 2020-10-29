@@ -1,22 +1,22 @@
-[![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](undefined)
+[![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/alisonfarrar/treegen-group5?branch=master)](https://bettercodehub.com/)
+[![CircleCI Build Status](https://circleci.com/gh/alisonfarrar/treegen-group5.svg?style=shield)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
 
 # TreeGen
 >TreeGen invites you into the wonderful world of fractal trees. Have a play around, and maybe learn a little bit about set theory and plant development!
 
-[Check it out here!](https://alisonfarrar.github.io/treegen-group5/)
-
-TreeGen is a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and created with [Nuxt.js](https://nuxtjs.org/guides/features/nuxt-components). It features: 
+This is the public repository for TreeGen, a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and created with [Nuxt.js](https://nuxtjs.org/guides/features/nuxt-components). It features: 
 * Multiple preset trees showing you the diversity of fractal trees!
 * The option to modify the axiom, productions, and other parameters that generate each tree!
 * Cool info about the grammar of fractals and the theory behind L-Systems!
 
+[Check it out here!](https://alisonfarrar.github.io/treegen-group5/)
 
 # Contributor Guide
 Thank you for joining us to work on this project! We hope that here you will find useful information to help you get started. If you think of anything that should be added, feel free to create an issue and propose the change. For more information on the tools we used, please check out our [project wiki](https://github.com/alisonfarrar/treegen-group5/wiki/Overview) which contains links to many useful pages.
 
-## Setting up virtual environment
-#TODO - is this needed?
+## Virtual Environment
+`npm install` will install the required JavaScript modules into your development environment. You may need to run `npm install` again on subsequent pulls should the dependencies in package.json to be updated.
 
 ## Build Setup
 To run the web application on your local machine for development purposes, navigate to the root directory of the application. Then use npm to install dependencies stored in the package.json file and run the web app on a local test server:
@@ -36,8 +36,7 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-It should usually be one of the core development team who does this. 
-
+The web app is deployed automatically as part of continuous integration workflow, so there shouldn't be any need for you to do this manually.
 
 ## Workflow 
 Pick an issue to work on and assign yourself to that issue. 
@@ -79,13 +78,18 @@ If the changes you have made require new packages, you should add these to the `
   },
 ```
 
-## Style guide
+## Continuous Integration and testing
+Our automatic testing workflow is handled by CircleCI and can be edited in `config.yml`. It checks code coverage using [CodeCov](https://codecov.io), runs our test suite, and deploys the web app to GitHub Pages. 
 
+## Browser compatibility
+TreeGen is built on the Vuetify framework and is compatible with most common browsers including Chrome, Firefox, Safari 10+ and Edge. If you come across any problems using TreeGen on one of these browsers, please flag this up by creating an issue and labelling it "bug". Please include your browser version, your hardware and operating system version, and the steps needed to reproduce the problem, if applicable.   
+
+## Style guide
 ### Code formatting and linting
 We recommend using the [Prettier](https://prettier.io/docs/en/index.html) code formatter. This reprints your code so that it looks cleaner, takes care of linting, and enforces a consistent style across the development team. To enable linting with Prettier in Visual Studio Code, first install the Prettier extension by searching for "Prettier - Code formatter" in the extensions tab. 
 
 ### Naming conventions
-Keep object names short and descriptive. Most have one-word names, and where the name consists of multiple words, these are connected by an underscore. Care should be taken to avoid using protected words as variable names since this will prevent your code from being interpreted correctly.
+Keep object names short and descriptive. Avoid using protected words as names, since this will prevent your code from being interpreted correctly.
 
 ### Documentation
 We are very happy for you to contribute to all areas of our web application, but where you add to the code please make sure that you clearly document your changes using comments. This will help us to understand the reasoning behind your changes and lead to pull requests being accepted more quickly. This might include:
