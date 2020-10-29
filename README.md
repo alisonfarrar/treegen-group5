@@ -14,15 +14,6 @@ TreeGen is a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and c
 # Contributor Guide
 Thank you for joining us to work on this project! We hope that here you will find useful information to help you get started. If you think of anything that should be added, feel free to create an issue and propose the change. For more information on the tools we used, please check out our [project wiki](https://github.com/alisonfarrar/treegen-group5/wiki/Overview) which contains links to many useful pages.
 
-## Setting up virtual environment
-To avoid confusion about which package versions are being used, it's a good idea to work in a virtual environment.
-Here's how to set one up:
-
-```bash
-python3 -m venv venv # the second venv is the name of the environment
-source venv/bin/activate
-```
-
 ## Build Setup
 To run the web application on your local machine for development purposes, navigate to the root directory of the application. Then use npm to install dependencies stored in the package.json file and run the web app on a local test server:
 ```bash
@@ -41,8 +32,7 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-It should usually be one of the core development team who does this. 
-
+The web app is deployed automatically as part of continuous integration workflow, so there shouldn't be any need for you to do this.
 
 ## Workflow 
 Pick an issue to work on and assign yourself to that issue. 
@@ -83,6 +73,9 @@ If the changes you have made require new packages, you should add these to the `
     "nuxt": "^2.14.5"
   },
 ```
+
+## Continuous Integration and testing
+Our automatic testing workflow is handled by CircleCI and can be edited in `config.yml`. It checks code coverage using [CodeCov](https://codecov.io), runs our test suite, and deploys the web app to GitHub Pages. 
 
 ## Style guide
 
