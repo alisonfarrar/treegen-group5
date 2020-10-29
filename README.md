@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](undefined)
+[![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master)
 
 [![CircleCI Build Status](https://circleci.com/gh/alisonfarrar/treegen-group5.svg?style=shield)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
 
@@ -14,6 +14,14 @@ This is the public repository for TreeGen, a static web app built in [Vue.js](ht
 
 # Contributor Guide
 Thank you for joining us to work on this project! We hope that here you will find useful information to help you get started. If you think of anything that should be added, feel free to create an issue and propose the change. For more information on the tools we used, please check out our [project wiki](https://github.com/alisonfarrar/treegen-group5/wiki/Overview) which contains links to many useful pages.
+
+## Setting up virtual environment
+To avoid confusion about which package versions are being used, it's a good idea to work in a virtual environment. Here's how to set one up:
+
+```bash
+python3 -m venv venv #the second 'venv' sets the name of the virtual environment
+source venv/bin/activate
+```
 
 ## Build Setup
 To run the web application on your local machine for development purposes, navigate to the root directory of the application. Then use npm to install dependencies stored in the package.json file and run the web app on a local test server:
