@@ -1,6 +1,6 @@
 import { createLocalVue, mount, shallowMount } from '@vue/test-utils'
 import Vue from 'vue'
-import Inspire from '@/pages/Inspire.vue'
+import Inspire from '@/pages/inspire.vue'
 import Vuetify from 'vuetify'
 //import flushPromises from 'flush-promises'
 
