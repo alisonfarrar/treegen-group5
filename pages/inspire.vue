@@ -124,24 +124,23 @@
     <template v-slot:default>
       <tbody>
         <tr style="text-align:left">
-          <td style="width:60%">Axiom:</td>
+          <td style="width:50%">Axiom:</td>
           <td>{{ settings.axiom }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Productions:</td>
-          <!-- TODO: this needs to be updated to show the productions -->
-          <td>{{ settings.productions }}</td>  
+          <td style="width:50%">Production:</td>
+          <td>{{ settings.prod_str }}</td>  
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Angle of Rotation:</td>
+          <td style="width:50%">Angle of Rotation:</td>
           <td>{{ settings.angle + "°" }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Number of Iterations:</td>
+          <td style="width:50%">Number of Iterations:</td>
           <td>{{ settings.iterations }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Length of Initial Line:</td>
+          <td style="width:50%">Length of Initial Line:</td>
           <td>{{ settings.line_length }}</td>
         </tr>
       </tbody>
@@ -213,6 +212,7 @@
           axiom: "'F'",
           prod_keys: "'F'",
           prod_values: "'FF'",
+          prod_str: "'F -> FF'",
           iterations: 5,
           angle: 22.5,
           line_length: 4,
@@ -229,6 +229,7 @@
               axiom: "'F'",
               prod_keys: ['F'],
               prod_values: ['FF-[-F+F+F]+[+F-F-F]'],
+              prod_str: "'F -> FF-[-F+F+F]+[+F-F-F]'",
               iterations: 4,
               angle: 22.5,
               line_length: 40,
@@ -242,6 +243,7 @@
               axiom: "'X'",
               prod_keys: ['X', 'F'],
               prod_values: ['F[+X][-X]FX', 'FF'],
+              prod_str: "'X -> F[+X][-X]FX', 'F -> FF'",
               iterations: 7,
               angle: 25.7,
               line_length: 20,
@@ -255,6 +257,7 @@
               axiom: "'X'",
               prod_keys: ['X', 'F'],
               prod_values: ['F[+X]F[-X]+X', 'FF'],
+              prod_str: "'X -> F[+X]F[-X]+X', 'F -> FF'",
               iterations: 7,
               angle: 20,
               line_length: 20,
@@ -268,6 +271,7 @@
               axiom: "'F'",
               prod_keys: ['F'],
               prod_values: ['F[+F]F[-F]F'],
+              prod_str: "'F -> F[+F]F[-F]F'",
               iterations: 5,
               angle: 25.7,
               line_length: 20,
@@ -281,6 +285,7 @@
               axiom: "'F'",
               prod_keys: ['F'],
               prod_values: ['F[+F]F[-F][F]'],
+              prod_str: "'F -> F[+F]F[-F][F]'",
               iterations: 5,
               angle: 20,
               line_length: 40,
@@ -384,7 +389,7 @@
   margin: auto;
 }
 .e5 {
-  width: 300px;
+  width: 500px;
   margin: auto;
 }
 </style>
