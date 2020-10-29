@@ -11,6 +11,7 @@
           dark
           v-bind="attrs"
           v-on="on"
+          id="btn_about"
         >
           About
         </v-btn>
@@ -58,23 +59,24 @@
             cols="12"
             sm="12"
           >
-          <v-tooltip left>
-            <template v-slot:activator="{ on }">
+
+          <v-tooptip left>
+            <template v-slot:acivator="{ on }">
               <div id="wrapper">
                 <v-select
                   v-on="on"
                   v-model="tree_selected"
-                  :items="tree"
+                  :items="tree_list"
                   label="Pick a tree"
-                  @change="tree_change(); clean_canvas(); submit();"
+                  @change="tree_change(); submit();"
                   return-object
                 ></v-select>
               </div>
             </template>
             <span>Choose your fractal</span>
-          </v-tooltip>
+          ></v-tooltip>
 
-      </v-col>
+          </v-col>
           <v-col cols="12">
             <header>
               Iterations
@@ -214,23 +216,25 @@
         </v-card-text>
       </div>
     </v-expand-transition>
+
     <v-tooltip left>
-      <template v-slot:activator="{ on }">  
+      <template v-slot:activator="{ on }">
         <v-btn
           v-on="on"
           color="orange lighten-2"
           outlined
           rounded
           text
-          @click="clean_canvas(); submit();"
-          >
+          @click="submit();"
+          id="btn_run"
+        >
           Run
         </v-btn>
       </template>
       <span>Apply settings and <br>show your tree!</span>
     </v-tooltip>
   </v-card>
-    <canvas id="canvas" width="1000" height="1000" style="border: 1px solid black;">
+    <canvas id="canvas" ref="lcanvas" width="1000" height="1000" style="border: 1px solid black;">
     </canvas>
   </div>
 </template>
@@ -257,8 +261,9 @@
         },
         dialog: false,
         show_card: false,
+        tree_word: '',
         tree_selected: Object.assign({}, this.settings),
-        tree: [
+        tree_list: [
           {
             text: "Bifurcating Bush",
             simple_description: "I am a bush.",
@@ -334,16 +339,13 @@
     },
     methods: {
       tree_change () {
-        //alert('change')
-        //self.tree
-        console.log(this.tree)
-        console.log(this.tree_selected)
-        console.log(this.settings)
         this.settings = Object.assign({}, this.tree_selected.defaults);
       },
       submit () {
 
-        var canvas = document.getElementById('canvas');
+        this.clean_canvas();
+
+        var canvas = this.$refs.lcanvas
         var ctx = canvas.getContext("2d");
         // save the context
         ctx.save();
@@ -405,12 +407,12 @@
         for (prod=0; prod < this.settings.prod_keys.length; prod++) {
           tree.setProduction(this.settings.prod_keys[prod], this.settings.prod_values[prod]);
         }
-        tree.iterate(iterations);
+        this.tree_word = tree.iterate(iterations);
         tree.final();
       },
       clean_canvas: function () {
         // wipe the canvas clean for new plotting 
-        var canvas = document.getElementById('canvas');
+        var canvas = this.$refs.lcanvas
         const ctx = canvas.getContext('2d');
         // get the original (0, 0) (undo all translations)
         ctx.restore();
