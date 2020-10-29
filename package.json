@@ -14,10 +14,10 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "eslint": "^7.12.0",
-    "lindenmayer": "^1.5.4",
     "gh-pages": "^3.1.0",
+    "lindenmayer": "^1.5.4",
     "nuxt": "^2.14.5",
-    "lindenmayer": "^1.0.0"
+    "package.json": "^2.0.1"
   },
   "prettier": {
     "trailingComma": "es5",
@@ -35,5 +35,9 @@
     "jest": "^26.4.2",
     "prettier": "^2.1.1",
     "vue-jest": "^3.0.4"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
