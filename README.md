@@ -5,13 +5,12 @@
 # TreeGen
 >TreeGen invites you into the wonderful world of fractal trees. Have a play around, and maybe learn a little bit about set theory and plant development!
 
-[Check it out here!](https://alisonfarrar.github.io/treegen-group5/)
-
 This is the public repository for TreeGen, a static web app built in [Vue.js](https://vuejs.org/v2/guide/) and created with [Nuxt.js](https://nuxtjs.org/guides/features/nuxt-components). It features: 
 * Multiple preset trees showing you the diversity of fractal trees!
 * The option to modify the axiom, productions, and other parameters that generate each tree!
 * Cool info about the grammar of fractals and the theory behind L-Systems!
 
+[Check it out here!](https://alisonfarrar.github.io/treegen-group5/)
 
 # Contributor Guide
 Thank you for joining us to work on this project! We hope that here you will find useful information to help you get started. If you think of anything that should be added, feel free to create an issue and propose the change. For more information on the tools we used, please check out our [project wiki](https://github.com/alisonfarrar/treegen-group5/wiki/Overview) which contains links to many useful pages.
@@ -87,7 +86,7 @@ TreeGen is built on the Vuetify framework and is compatible with most common bro
 We recommend using the [Prettier](https://prettier.io/docs/en/index.html) code formatter. This reprints your code so that it looks cleaner, takes care of linting, and enforces a consistent style across the development team. To enable linting with Prettier in Visual Studio Code, first install the Prettier extension by searching for "Prettier - Code formatter" in the extensions tab. 
 
 ### Naming conventions
-Keep object names short and descriptive. Most have one-word names, and where the name consists of multiple words, these are connected by an underscore. Care should be taken to avoid using protected words as variable names since this will prevent your code from being interpreted correctly.
+Keep object names short and descriptive. Avoid using protected words as names, since this will prevent your code from being interpreted correctly.
 
 ### Documentation
 We are very happy for you to contribute to all areas of our web application, but where you add to the code please make sure that you clearly document your changes using comments. This will help us to understand the reasoning behind your changes and lead to pull requests being accepted more quickly. This might include:
