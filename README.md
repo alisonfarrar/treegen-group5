@@ -1,5 +1,5 @@
 [![codecov](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master/graph/badge.svg?token=6OMTXWC9HZ)](https://codecov.io/gh/alisonfarrar/treegen-group5/branch/master)
-
+[![BCH compliance](https://bettercodehub.com/edge/badge/alisonfarrar/treegen-group5?branch=master)](https://bettercodehub.com/)
 [![CircleCI Build Status](https://circleci.com/gh/alisonfarrar/treegen-group5.svg?style=shield)](https://app.circleci.com/pipelines/github/alisonfarrar/treegen-group5)
 
 # TreeGen
