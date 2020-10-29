@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Inspire from '@/pages/Inspire.vue'
+import Inspire from '@/pages/inspire.vue'
 
 describe('Inspire', () => {
     test('is a Vue instance', () => {
