@@ -28,11 +28,12 @@
             through the use of iteration and formal grammar. </p> 
           <p> They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  
             who initially conceived them as a mathematical theory of plant development. 
-            L-systems are based on the concept of ‘rewriting’ - the process of definingcomplex objects 
+            L-systems are based on the concept of ‘rewriting’ - the process of defining complex objects 
             by successively replacing parts of a simple initial object (or ‘axiom’) 
-            using a specific set of rules. </p> 
+            using a specific set of rules, known as ‘productions‘. </p> 
           <p> This is a simple L-system for the generation of fractal trees. 
-            These trees are built recursively by feeding the axiom through a set of production rules. 
+            These trees are built iteratively by feeding the axiom through a set of production rules. 
+            At each iteration, each letter (or ‘predecessor‘) in the axiom is replaced by a string of letters, the ‘successor‘. 
             We’ve provided a set of examples so you can see this system in action, but feel free to 
             adjust the parameters to see what shapes you can generate yourself! </p>
         </v-card-text>
@@ -58,63 +59,91 @@
             cols="12"
             sm="12"
           >
-          <v-select
-            v-model="tree_selected"
-            :items="tree_list"
-            label="Tree"
-            @change="tree_change(); submit();"
-            return-object
-          ></v-select>
-      </v-col>
+
+          <v-tooltip left>
+            <template v-slot:acivator="{ on }">
+              <div id="wrapper">
+                <v-select
+                  v-on="on"
+                  v-model="tree_selected"
+                  :items="tree_list"
+                  label="Pick a tree"
+                  @change="tree_change(); submit();"
+                  return-object
+                ></v-select>
+              </div>
+            </template>
+            <span>Choose your fractal</span>
+          ></v-tooltip>
+
+          </v-col>
           <v-col cols="12">
             <header>
               Iterations
             </header>
-            <v-slider
-              v-model="settings.iterations"
-              :max="10"
-              :min="0"
-              class="align-left"
-              :thumb-size="12"
-              thumb-label
-              step="1"
-              ticks
-            >
-            </v-slider>
+            <v-tooltip left>
+              <template v-slot:activator="{ on }">
+                <v-slider
+                  v-on="on"
+                  v-model="settings.iterations"
+                  :max="10"
+                  :min="0"
+                  class="align-left"
+                  :thumb-size="12"
+                  thumb-label
+                  step="1"
+                  ticks
+                >
+                </v-slider>
+              </template>
+            <span>How many times should the <br>production rules be applied?</span>
+          </v-tooltip>
           </v-col>
 
           <v-col cols="12">
             <header>
               Rotation (˚)
             </header>
-            <v-slider
-              v-model="settings.angle"
-              :max="180"
-              :min="0"
-              class="align-left"
-              :thumb-size="12"
-              thumb-label
-              step="0.5"
-              ticks
-            >
-            </v-slider>
+            <v-tooltip left>
+              <template v-slot:activator="{ on }">
+                <v-slider
+                  v-on="on"
+                  v-model="settings.angle"
+                  :max="180"
+                  :min="0"
+                  class="align-left"
+                  :thumb-size="12"
+                  thumb-label
+                  step="0.5"
+                  ticks
+                >
+                </v-slider>
+              </template>
+            <span>At what angle should <br>branches diverge?</span>
+          </v-tooltip>
           </v-col>
 
           <v-col cols="12">
             <header>
               Line Length
             </header>
-            <v-slider
-              v-model="settings.line_length"
-              :max="10"
-              :min="0"
-              class="align-left"
-              :thumb-size="12"
-              thumb-label
-              step="1"
-              ticks
-            >
-            </v-slider>
+            <v-tooltip left>
+              <template v-slot:activator="{ on }">
+                <v-slider
+                  v-on="on"
+                  v-model="settings.line_length"
+                  :max="10"
+                  :min="0"
+                  class="align-left"
+                  :thumb-size="12"
+                  thumb-label
+                  step="1"
+                  ticks
+                >
+                </v-slider>
+              </template>
+            <span>How long should the <br>branches be?</span>
+          </v-tooltip>
           </v-col>
         </v-row>
       </v-container>
@@ -161,15 +190,21 @@
     </v-card-subtitle>
 
     <v-card-actions>
-      <v-btn
-        color="orange lighten-2"
-        outlined
-        rounded
-        text
-        @click="show_card = !show_card"
-      >
-        Details
-      </v-btn>
+      <v-tooltip left>
+        <template v-slot:activator="{ on }">        
+          <v-btn 
+            v-on="on"
+            color="orange lighten-2"
+            outlined
+            rounded
+            text
+            @click="show_card = !show_card"
+          >
+            Details
+          </v-btn>
+        </template>
+        <span>Get more info on <br>this type of tree!</span>
+      </v-tooltip>
     </v-card-actions>
 
     <v-expand-transition>
@@ -182,17 +217,22 @@
       </div>
     </v-expand-transition>
 
-  <v-btn
-    color="orange lighten-2"
-    outlined
-    rounded
-    text
-    @click="submit();"
-    id="btn_run"
-    >
-    Run
-  </v-btn>
-
+    <v-tooltip left>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          v-on="on"
+          color="orange lighten-2"
+          outlined
+          rounded
+          text
+          @click="submit();"
+          id="btn_run"
+        >
+          Run
+        </v-btn>
+      </template>
+      <span>Apply settings and <br>show your tree!</span>
+    </v-tooltip>
   </v-card>
     <canvas id="canvas" ref="lcanvas" width="1000" height="1000" style="border: 1px solid black;">
     </canvas>
@@ -239,7 +279,7 @@
             }
           },
           {
-            text: "Stabby Spear",
+            text: "Stabby Sprig",
             simple_description: "Don't touch me!",
             extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
             defaults: {
