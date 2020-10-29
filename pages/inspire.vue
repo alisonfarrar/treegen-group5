@@ -61,7 +61,7 @@
             v-model="tree_selected"
             :items="tree"
             label="Tree"
-            @change="tree_change"
+            @change="tree_change(); clean_canvas(); submit();"
             return-object
           ></v-select>
       </v-col>
@@ -181,12 +181,6 @@
       </div>
     </v-expand-transition>
   </v-card>
-      <v-btn
-        class="mr-4"
-        @click="submit"
-      >
-      submit
-    </v-btn>
     <canvas id="canvas" width="1000" height="1000" style="border: 1px solid black;">
     </canvas>
   </div>
@@ -300,14 +294,13 @@
       },
       submit () {
 
-        var canvas = document.getElementById('canvas')
-
-        // TODO add canvas reset
-
-        var ctx = canvas.getContext("2d")
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext("2d");
+        // save the context
+        ctx.save();
 
         // translate to center of canvas
-        ctx.translate(canvas.width / 2, 3*canvas.height / 4)
+        ctx.translate(canvas.width / 2, 3*canvas.height / 4);
 
         // now define the parameters for figure 1.24c
 
@@ -366,6 +359,15 @@
         tree.iterate(iterations);
         tree.final();
       },
+      clean_canvas: function () {
+        // wipe the canvas clean for new plotting 
+        var canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        // get the original (0, 0) (undo all translations)
+        ctx.restore();
+        // clear the canvas 
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
     },
   }
 </script>
