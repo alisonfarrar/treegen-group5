@@ -219,8 +219,8 @@
             extended_description: "I am the most special of all the trees because I am actually a bush. Example 1.24c) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'F'",
-              prod_keys: "'F'",
-              prod_values: "'FF-[-F+F+F]+[+F-F-F]'",
+              prod_keys: ['F'],
+              prod_values: ['FF-[-F+F+F]+[+F-F-F]'],
               iterations: 4,
               angle: 22.5,
               line_length: 40,
@@ -232,8 +232,8 @@
             extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'X'",
-              prod_keys: "'X', 'F'",
-              prod_values: "'F[+X][-X]FX', 'FF'",
+              prod_keys: ['X', 'F'],
+              prod_values: ['F[+X][-X]FX', 'FF'],
               iterations: 7,
               angle: 25.7,
               line_length: 20,
@@ -245,8 +245,8 @@
             extended_description: "Will tickle your nose if you get too close! Example 1.24d) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'X'",
-              prod_keys: "'X', 'F'",
-              prod_values: "'F[+X]F[-X]+X', 'FF'",
+              prod_keys: ['X', 'F'],
+              prod_values: ['F[+X]F[-X]+X', 'FF'],
               iterations: 7,
               angle: 20,
               line_length: 20,
@@ -258,8 +258,8 @@
             extended_description: "Soon I will be covered in leaves! Example 1.24a) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'F'",
-              prod_keys: "'F'",
-              prod_values: "'F[+F]F[-F]F'",
+              prod_keys: ['F'],
+              prod_values: ['F[+F]F[-F]F'],
               iterations: 5,
               angle: 25.7,
               line_length: 20,
@@ -271,8 +271,8 @@
             extended_description: "The autumn storms have arrived! Example 1.24b) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'F'",
-              prod_keys: "'F'",
-              prod_values: "'F[+F]F[-F][F]'",
+              prod_keys: ['F'],
+              prod_values: ['F[+F]F[-F][F]'],
               iterations: 5,
               angle: 20,
               line_length: 40,
@@ -299,7 +299,7 @@
         var ctx = canvas.getContext("2d")
 
         // translate to center of canvas
-        ctx.translate(canvas.width / 2, canvas.height / 4)
+        ctx.translate(canvas.width / 2, 3*canvas.height / 4)
 
         // now define the parameters for figure 1.24c
 
@@ -313,6 +313,8 @@
         var orientation = 11; // close to vertical
         // create var stack which will collect states so we can call ] before [ 
         var stack = [];
+        // create var state so that we can use it 
+        var state;
         // define the tree generation L-system
         var tree = new LSystem({
           finals: {
