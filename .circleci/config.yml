@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+    codecov: codecov/codecov@1.0.2
 jobs:
   build:
     working_directory: ~/repo
@@ -41,3 +43,5 @@ jobs:
           prefix: tests
       - store_test_results:
           path: test-results.xml
+      - codecov/upload:
+        file: {{ coverage_report_filepath }}
