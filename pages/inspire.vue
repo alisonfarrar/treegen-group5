@@ -181,6 +181,17 @@
         </v-card-text>
       </div>
     </v-expand-transition>
+
+  <v-btn
+    color="orange lighten-2"
+    outlined
+    rounded
+    text
+    @click="clean_canvas(); submit();"
+    >
+    Run
+  </v-btn>
+
   </v-card>
     <canvas id="canvas" width="1000" height="1000" style="border: 1px solid black;">
     </canvas>
@@ -213,7 +224,7 @@
           {
             text: "Bifurcating Bush",
             simple_description: "I am a bush.",
-            extended_description: "I am the most special of all the trees because I am actually a bush. Example 1.24c) from 'The Algorithmic Beauty of Plants'",
+            extended_description: "I am the most special of all the trees because I am actually a bush. Example 1.24c) from 'The Algorithmic Beauty of Plants'.",
             defaults: {
               axiom: "'F'",
               prod_keys: ['F'],
