@@ -60,7 +60,7 @@
             sm="12"
           >
 
-          <v-tooptip left>
+          <v-tooltip left>
             <template v-slot:acivator="{ on }">
               <div id="wrapper">
                 <v-select
