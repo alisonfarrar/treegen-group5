@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  codecov: codecov/codecov@1.1.1
 jobs:
   build:
     working_directory: ~/repo
@@ -41,3 +43,6 @@ jobs:
           prefix: tests
       - store_test_results:
           path: test-results.xml
+      - codecov/upload:
+        file: './coverage/clover.xml'
+        # token: {{ token }}  # add token if necessary

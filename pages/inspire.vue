@@ -23,10 +23,19 @@
         </v-card-title>
 
         <v-card-text>
-          Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes through the use of iteration and formal grammar. They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  who initially conceived them as a mathematical theoryof plant development. L-systems are based on the concept of ‘rewriting’ - the process of definingcomplex objects by successively replacing parts of a simple initial object (or ‘axiom’) using a specific set of rules. This is a simple L-system for the generation of fractal trees. These trees are built recursively by feeding the axiom through a set of production rules. We’ve provided a set of examples so you can see this system in action, but feel free to adjust the parameters to see what shapes you can generate yourself!
+          <p></p>
+          <p> Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes 
+            through the use of iteration and formal grammar. </p> 
+          <p> They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  
+            who initially conceived them as a mathematical theory of plant development. 
+            L-systems are based on the concept of ‘rewriting’ - the process of definingcomplex objects 
+            by successively replacing parts of a simple initial object (or ‘axiom’) 
+            using a specific set of rules. </p> 
+          <p> This is a simple L-system for the generation of fractal trees. 
+            These trees are built recursively by feeding the axiom through a set of production rules. 
+            We’ve provided a set of examples so you can see this system in action, but feel free to 
+            adjust the parameters to see what shapes you can generate yourself! </p>
         </v-card-text>
-
-        <v-divider></v-divider>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -53,7 +62,7 @@
             v-model="tree_selected"
             :items="tree"
             label="Tree"
-            @change="tree_change"
+            @change="tree_change(); clean_canvas(); submit();"
             return-object
           ></v-select>
       </v-col>
@@ -116,23 +125,23 @@
     <template v-slot:default>
       <tbody>
         <tr style="text-align:left">
-          <td style="width:60%">Axiom</td>
+          <td style="width:50%">Axiom:</td>
           <td>{{ settings.axiom }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Productions</td>
-          <td>{{ settings.productions }}</td>
+          <td style="width:50%">Production:</td>
+          <td>{{ settings.prod_str }}</td>  
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Angle of Rotation</td>
-          <td>{{ settings.angle }}</td>
+          <td style="width:50%">Angle of Rotation:</td>
+          <td>{{ settings.angle + "°" }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Number of Iterations</td>
+          <td style="width:50%">Number of Iterations:</td>
           <td>{{ settings.iterations }}</td>
         </tr>
         <tr style="text-align:left">
-          <td style="width:60%">Length of Initial Line</td>
+          <td style="width:50%">Length of Initial Line:</td>
           <td>{{ settings.line_length }}</td>
         </tr>
       </tbody>
@@ -144,11 +153,11 @@
     outlined
   >
     <v-card-title>
-      {{ tree.text }}
+      {{ this.tree_selected.text }}
     </v-card-title>
 
     <v-card-subtitle>
-      {{ tree.simple_description }}
+      {{ this.tree_selected.simple_description }}
     </v-card-subtitle>
 
     <v-card-actions>
@@ -168,19 +177,25 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          {{ tree.extended_description }}
+          {{ this.tree_selected.extended_description }}
         </v-card-text>
       </div>
     </v-expand-transition>
+
+  <v-btn
+    color="orange lighten-2"
+    outlined
+    rounded
+    text
+    @click="clean_canvas(); submit();"
+    id="btn_run"
+    >
+    Run
+  </v-btn>
+
   </v-card>
-      <v-btn
-        class="mr-4"
-        @click="submit"
-        id="btn_submit"
-      >
-      submit
-    </v-btn>
-    <canvas ref="lcanvas" id="canvas" width="1000" height="1000"></canvas>
+    <canvas id="canvas" ref="lcanvas" width="1000" height="1000" style="border: 1px solid black;">
+    </canvas>
   </div>
 </template>
 
@@ -193,25 +208,30 @@
     data () {
       return {
         settings: {
+          text: "Tree",
+          simple_description: "Please select a tree.",
+          extended_description: "There are many suggested trees to choose from in the drop-down list.",
           axiom: "'F'",
           prod_keys: "'F'",
           prod_values: "'FF'",
+          prod_str: "'F -> FF'",
           iterations: 5,
           angle: 22.5,
           line_length: 4,
         },
         dialog: false,
         show_card: false,
-        tree_selected: undefined,
+        tree_selected: Object.assign({}, this.settings),
         tree: [
           {
             text: "Bifurcating Bush",
             simple_description: "I am a bush.",
-            extended_description: "I am the most special of all the trees because I am actually a bush. Example 1.24c) from 'The Algorithmic Beauty of Plants'",
+            extended_description: "I am the most special of all the trees because I am actually a bush. Example 1.24c) from 'The Algorithmic Beauty of Plants'.",
             defaults: {
               axiom: "'F'",
-              prod_keys: "'F'",
-              prod_values: "'FF-[-F+F+F]+[+F-F-F]'",
+              prod_keys: ['F'],
+              prod_values: ['FF-[-F+F+F]+[+F-F-F]'],
+              prod_str: "'F -> FF-[-F+F+F]+[+F-F-F]'",
               iterations: 4,
               angle: 22.5,
               line_length: 40,
@@ -223,8 +243,9 @@
             extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'X'",
-              prod_keys: "'X', 'F'",
-              prod_values: "'F[+X][-X]FX', 'FF'",
+              prod_keys: ['X', 'F'],
+              prod_values: ['F[+X][-X]FX', 'FF'],
+              prod_str: "'X -> F[+X][-X]FX', 'F -> FF'",
               iterations: 7,
               angle: 25.7,
               line_length: 20,
@@ -236,8 +257,9 @@
             extended_description: "Will tickle your nose if you get too close! Example 1.24d) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'X'",
-              prod_keys: "'X', 'F'",
-              prod_values: "'F[+X]F[-X]+X', 'FF'",
+              prod_keys: ['X', 'F'],
+              prod_values: ['F[+X]F[-X]+X', 'FF'],
+              prod_str: "'X -> F[+X]F[-X]+X', 'F -> FF'",
               iterations: 7,
               angle: 20,
               line_length: 20,
@@ -249,8 +271,9 @@
             extended_description: "Soon I will be covered in leaves! Example 1.24a) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'F'",
-              prod_keys: "'F'",
-              prod_values: "'F[+F]F[-F]F'",
+              prod_keys: ['F'],
+              prod_values: ['F[+F]F[-F]F'],
+              prod_str: "'F -> F[+F]F[-F]F'",
               iterations: 5,
               angle: 25.7,
               line_length: 20,
@@ -262,8 +285,9 @@
             extended_description: "The autumn storms have arrived! Example 1.24b) from 'The Algorithmic Beauty of Plants'",
             defaults: {
               axiom: "'F'",
-              prod_keys: "'F'",
-              prod_values: "'F[+F]F[-F][F]'",
+              prod_keys: ['F'],
+              prod_values: ['F[+F]F[-F][F]'],
+              prod_str: "'F -> F[+F]F[-F][F]'",
               iterations: 5,
               angle: 20,
               line_length: 40,
@@ -283,15 +307,14 @@
       },
       submit () {
 
-        //var canvas = document.getElementById('canvas')
-        var canvas = this.$refs.lcanvas
-
-        // TODO add canvas reset
-
-        var ctx = canvas.getContext("2d")
+        var canvas = document.getElementById('canvas');
+        //var canvas = this.$refs.lcanvas
+        var ctx = canvas.getContext("2d");
+        // save the context
+        ctx.save();
 
         // translate to center of canvas
-        ctx.translate(canvas.width / 2, canvas.height / 4)
+        ctx.translate(canvas.width / 2, 3*canvas.height / 4);
 
         // now define the parameters for figure 1.24c
 
@@ -305,17 +328,19 @@
         var orientation = 11; // close to vertical
         // create var stack which will collect states so we can call ] before [ 
         var stack = [];
+        // create var state so that we can use it 
+        var state;
         // define the tree generation L-system
         var tree = new LSystem({
           finals: {
-            '+': () => { orientation += (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+            '+': () => { orientation += (Math.PI/180) * angle
           }, 
-            '-': () => { orientation -= (Math.PI/180) * angle//, console.log("new phi:", orientation) 
+            '-': () => { orientation -= (Math.PI/180) * angle 
           },
             // save the current turtle position and orientation to a list
             '[': () => { stack.push( { 'x': x, 'y': y, 'orientation': orientation } ) }, 
             // set the turtle's position and orientiation to most recent values from list
-            ']': () => { state = stack.pop(); x = state.x, y = state.y, orientation = state.orientation//, console.log("Popping x,y,phi: ", state)  
+            ']': () => { state = stack.pop(); x = state.x, y = state.y, orientation = state.orientation
           },  
             // pass plotting instructions to the turtle
             'F': () => {
@@ -326,7 +351,7 @@
               //console.log(" x, y, phi:", x, y, orientation)
               // calculate the new coordinates 
               // line length depends on the number of iterations
-              d = initLine/(tree.iterations + 1)
+              var d = line_length/(tree.iterations + 1)
               // calculate 
               x += d * Math.cos(orientation)
               y += d * Math.sin(orientation)
@@ -341,14 +366,22 @@
         tree.setAxiom(this.settings.axiom);
         // call setProduction for each pair given in settings
         // setProduction accepts two strings
-        for (prod=0; prod < this.settings.prod_keys.length; i++) {
+        var prod;
+        for (prod=0; prod < this.settings.prod_keys.length; prod++) {
           tree.setProduction(this.settings.prod_keys[prod], this.settings.prod_values[prod]);
         }
         tree.iterate(iterations);
         tree.final();
-
-
       },
+      clean_canvas: function () {
+        // wipe the canvas clean for new plotting 
+        var canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        // get the original (0, 0) (undo all translations)
+        ctx.restore();
+        // clear the canvas 
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
     },
   }
 </script>
@@ -359,7 +392,7 @@
   margin: auto;
 }
 .e5 {
-  width: 300px;
+  width: 500px;
   margin: auto;
 }
 </style>
