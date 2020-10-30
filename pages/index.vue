@@ -35,7 +35,17 @@
             These trees are built iteratively by feeding the axiom through a set of production rules. 
             At each iteration, each letter (or ‘predecessor‘) in the axiom is replaced by a string of letters, the ‘successor‘. 
             We’ve provided a set of examples so you can see this system in action, but feel free to 
-            adjust the parameters to see what shapes you can generate yourself! </p>
+            adjust the parameters to see what shapes you can generate yourself! 
+            </br>
+            </br>
+            Interested in joining our team? Check out our
+              <a href="https://github.com/alisonfarrar/treegen-group5" 
+                class = "github-link"
+                >
+                  GitHub repository! 
+              </a>
+            </p>
+            
         </v-card-text>
 
         <v-card-actions>
