@@ -59,6 +59,7 @@ describe('Inspire', () => {
             iterations: 4,
             angle: 22.5,
             line_length: 40,
+            max_iterates: 7,
         })
         // Make the output manageable
         wrapper.vm.settings.iterations = 1
@@ -79,7 +80,8 @@ describe('Inspire', () => {
             prod_str: "'X -> F[+X][-X]FX', 'F -> FF'",
             iterations: 7,
             angle: 25.7,
-            line_length: 20,
+            line_length: 15,
+            max_iterates: 10,
         })
         // Make the output manageable
         wrapper.vm.settings.iterations = 1

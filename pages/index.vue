@@ -174,7 +174,7 @@
                                             <header>Iterations</header>
                                             <v-slider
                                                 v-model="settings.iterations"
-                                                :max="10"
+                                                :max="settings.max_iterates"
                                                 :min="0"
                                                 class="align-left"
                                                 :thumb-size="12"
@@ -296,6 +296,7 @@ export default {
                 iterations: 5,
                 angle: 22.5,
                 line_length: 40,
+                max_iterates: 10,
             },
             dialog: false,
             show_card: false,
@@ -314,7 +315,8 @@ export default {
                         prod_str: "'F -> F[+F]F[-F]F'",
                         iterations: 5,
                         angle: 25.7,
-                        line_length: 15,
+                        line_length: 12,
+                        max_iterates: 9,
                     },
                 },
                 {
@@ -330,6 +332,7 @@ export default {
                         iterations: 5,
                         angle: 20,
                         line_length: 40,
+                        max_iterates: 9,
                     },
                 },
                 {
@@ -345,6 +348,7 @@ export default {
                         iterations: 4,
                         angle: 22.5,
                         line_length: 40,
+                        max_iterates: 7,
                     },
                 },
                 {
@@ -359,7 +363,8 @@ export default {
                         prod_str: "'X -> F[+X]F[-X]+X', 'F -> FF'",
                         iterations: 7,
                         angle: 20,
-                        line_length: 20,
+                        line_length: 15,
+                        max_iterates: 10,
                     },
                 },
                 {
@@ -374,7 +379,8 @@ export default {
                         prod_str: "'X -> F[+X][-X]FX', 'F -> FF'",
                         iterations: 7,
                         angle: 25.7,
-                        line_length: 20,
+                        line_length: 15,
+                        max_iterates: 10,
                     },
                 },
             ],
