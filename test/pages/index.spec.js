@@ -49,7 +49,7 @@ describe('Inspire', () => {
 
     it('LSystem function example 1', async () => {
         // Change to the first example
-        wrapper.vm.tree_selected = wrapper.vm.tree_list[0]
+        wrapper.vm.tree_selected = wrapper.vm.tree_list[2]
         wrapper.vm.tree_change();
         expect(wrapper.vm.settings).toEqual({
             axiom: "'F'",
@@ -70,7 +70,7 @@ describe('Inspire', () => {
 
     it('LSystem function example 2', async () => {
         // Change to the first example
-        wrapper.vm.tree_selected = wrapper.vm.tree_list[1]
+        wrapper.vm.tree_selected = wrapper.vm.tree_list[4]
         wrapper.vm.tree_change();
         expect(wrapper.vm.settings).toEqual({
             axiom: "'X'",
