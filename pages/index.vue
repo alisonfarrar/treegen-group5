@@ -43,16 +43,22 @@
                                 </p>
                                 <p>
                                     This is a simple L-system for the generation
-                                    of fractal trees. These trees are built
-                                    iteratively by feeding the axiom through a
+                                    of fractal trees. These designs are based on several patterns described in
+                                    <a
+                                        href="http://algorithmicbotany.org/papers/#abop"
+                                        class="book-link"
+                                    >
+                                        The Algorithmic Beauty of Plants (1990)
+                                  </a>. Fractal trees are built iteratively by feeding an axiom through a
                                     set of production rules. At each iteration,
                                     each letter (or ‘predecessor‘) in the axiom
-                                    is replaced by a string of letters, the
-                                    ‘successor‘. We’ve provided a set of
+                                    is replaced by a string of letters (the
+                                    ‘successor‘). We’ve provided a set of
                                     examples so you can see this system in
                                     action, but feel free to adjust the
                                     parameters to see what shapes you can
                                     generate yourself!
+                                    <br />
                                     <br />
                                     Interested in joining our team? Check out
                                     our
