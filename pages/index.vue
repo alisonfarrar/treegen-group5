@@ -145,7 +145,6 @@
                             ref="lcanvas"
                             width="600vh"
                             height="800vh"
-                            style="border: 1px solid black"
                         >
                         </canvas>
                     </v-sheet>
