@@ -1,242 +1,253 @@
 
 <template>
-  <div>
-    <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="red lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-          id="btn_about"
-        >
-          About
-        </v-btn>
-      </template>
-
-      <v-card>
-        <v-card-title class="headline grey lighten-2">
-          About the Project
-        </v-card-title>
-
-        <v-card-text>
-          <p></p>
-          <p> Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes 
-            through the use of iteration and formal grammar. </p> 
-          <p> They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  
-            who initially conceived them as a mathematical theory of plant development. 
-            L-systems are based on the concept of ‘rewriting’ - the process of defining complex objects 
-            by successively replacing parts of a simple initial object (or ‘axiom’) 
-            using a specific set of rules, known as ‘productions‘. </p> 
-          <p> This is a simple L-system for the generation of fractal trees. 
-            These trees are built iteratively by feeding the axiom through a set of production rules. 
-            At each iteration, each letter (or ‘predecessor‘) in the axiom is replaced by a string of letters, the ‘successor‘. 
-            We’ve provided a set of examples so you can see this system in action, but feel free to 
-            adjust the parameters to see what shapes you can generate yourself! 
-            </br>
-            </br>
-            Interested in joining our team? Check out our
-              <a href="https://github.com/alisonfarrar/treegen-group5" 
-                class = "github-link"
-                >
-                  GitHub repository! 
-              </a>
-            </p>
-            
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="dialog = false"
+  <v-app id="inspire">
+    <v-main class="grey lighten-3">
+      <v-row>
+        <v-col cols="12" sm="2">
+          <v-dialog
+            v-model="dialog"
+            width="500"
           >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  <v-card class="e4">
-    <v-card-text>
-      <v-container fluid>
-        <v-row>
-          <v-col
-            class="d-flex"
-            cols="12"
-            sm="12"
-          >
-          <v-select
-            v-model="tree_selected"
-            :items="tree_list"
-            label="Pick a tree"
-            @change="tree_change(); submit();"
-            return-object
-          ></v-select>
-          </v-col>
-          <v-col cols="12">
-            <header>
-              Iterations
-            </header>
-            <v-slider
-              v-model="settings.iterations"
-              :max="10"
-              :min="0"
-              class="align-left"
-              :thumb-size="12"
-              thumb-label
-              step="1"
-              ticks
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="red lighten-2"
+                dark
+                v-bind="attrs"
+                v-on="on"
+                id="btn_about"
               >
-            </v-slider>
-          </v-col>
+                About
+              </v-btn>
+            </template>
 
-          <v-col cols="12">
-            <header>
-              Rotation (˚)
-            </header>
-            <v-slider
-              v-model="settings.angle"
-              :max="180"
-              :min="0"
-              class="align-left"
-              :thumb-size="12"
-              thumb-label
-              step="0.1"
-              ticks
+              <v-card>
+                <v-card-title class="headline grey lighten-2">
+                  About the Project
+                </v-card-title>
+
+                <v-card-text>
+                  <p></p>
+                  <p> Lindenmayer systems (L-systems) are systems that enable the definition of complex shapes 
+                    through the use of iteration and formal grammar. </p> 
+                  <p> They’re named after their creator, Hungarian theoretical biologist Aristid Lindenmayer,  
+                    who initially conceived them as a mathematical theory of plant development. 
+                    L-systems are based on the concept of ‘rewriting’ - the process of defining complex objects 
+                    by successively replacing parts of a simple initial object (or ‘axiom’) 
+                    using a specific set of rules, known as ‘productions‘. </p> 
+                  <p> This is a simple L-system for the generation of fractal trees. 
+                    These trees are built iteratively by feeding the axiom through a set of production rules. 
+                    At each iteration, each letter (or ‘predecessor‘) in the axiom is replaced by a string of letters, the ‘successor‘. 
+                    We’ve provided a set of examples so you can see this system in action, but feel free to 
+                    adjust the parameters to see what shapes you can generate yourself! 
+                    <br>
+                    Interested in joining our team? Check out our
+                      <a href="https://github.com/alisonfarrar/treegen-group5" 
+                        class = "github-link"
+                        >
+                          GitHub repository! 
+                      </a>
+                    </p>
+                    
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="dialog = false"
+                  >
+                    Close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-tooltip left>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      color="orange lighten-2"
+                      outlined
+                      rounded
+                      text
+                      @click="submit();"
+                      id="btn_run"
+                    >
+                      Run
+                    </v-btn>
+                  </template>
+                  <span>Apply settings and <br>show your tree!</span>
+                </v-tooltip>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-sheet rounded="lg" min-height="70vh">
+            <canvas id="canvas" ref="lcanvas" width="600vh" height="800vh" style="border: 1px solid black;">
+            </canvas>
+          </v-sheet>
+        </v-col>
+        <v-col cols="12" sm="4">
+          <v-sheet rounded="lg" min-height="268">
+            <v-card>
+              <v-card-text>
+                <v-container fluid>
+                  <v-row>
+                    <v-col
+                      class="d-flex"
+                      cols="12"
+                      sm="12"
+                    >
+                    <v-select
+                      v-model="tree_selected"
+                      :items="tree_list"
+                      label="Pick a tree"
+                      @change="tree_change(); submit();"
+                      return-object
+                    ></v-select>
+                    </v-col>
+                    <v-col cols="12">
+                      <header>
+                        Iterations
+                      </header>
+                      <v-slider
+                        v-model="settings.iterations"
+                        :max="10"
+                        :min="0"
+                        class="align-left"
+                        :thumb-size="12"
+                        thumb-label
+                        step="1"
+                        ticks
+                        >
+                      </v-slider>
+                    </v-col>
+
+                    <v-col cols="12">
+                      <header>
+                        Rotation (˚)
+                      </header>
+                      <v-slider
+                        v-model="settings.angle"
+                        :max="180"
+                        :min="0"
+                        class="align-left"
+                        :thumb-size="12"
+                        thumb-label
+                        step="0.1"
+                        ticks
+                      >
+                      </v-slider>
+                    </v-col>
+
+                    <v-col cols="12">
+                      <header>
+                        Line Length
+                      </header>
+                      <v-slider
+                        v-model="settings.line_length"
+                        :max="40"
+                        :min="0"
+                        class="align-left"
+                        :thumb-size="12"
+                        thumb-label
+                        step="1"
+                        ticks
+                      >
+                      </v-slider>
+                    <v-tooltip bottom>      
+                      <template v-slot:activator="{ on, attrs }">        
+                        <v-btn          
+                          color="red lighten-2"          
+                          dark          
+                          v-bind="attrs"          
+                          v-on="on"        
+                          >          
+                          Tips        
+                          </v-btn>      
+                        </template>      
+                      <span>
+                        Pick a tree: Which default tree do you want to start with?<br>
+                        Iterations: How many times will productions be applied?<br>
+                        Rotation: At what angle should the branches diverge?<br>
+                        Line Length: How long should the branches be?
+                      </span>    
+                    </v-tooltip>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+            </v-card>
+            <v-simple-table dense>
+              <template v-slot:default>
+                <tbody>
+                  <tr style="text-align:left">
+                    <td style="width:50%">Axiom:</td>
+                    <td>{{ settings.axiom }}</td>
+                  </tr>
+                  <tr style="text-align:left">
+                    <td style="width:50%">Production:</td>
+                    <td>{{ settings.prod_str }}</td>  
+                  </tr>
+                  <tr style="text-align:left">
+                    <td style="width:50%">Angle of Rotation:</td>
+                    <td>{{ settings.angle + "°" }}</td>
+                  </tr>
+                  <tr style="text-align:left">
+                    <td style="width:50%">Number of Iterations:</td>
+                    <td>{{ settings.iterations }}</td>
+                  </tr>
+                  <tr style="text-align:left">
+                    <td style="width:50%">Length of Initial Line:</td>
+                    <td>{{ settings.line_length }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+            <v-card
+              class="mx-auto"
+              max-width="344"
+              outlined
             >
-            </v-slider>
-          </v-col>
+              <v-card-title>
+                {{ this.tree_selected.text }}
+              </v-card-title>
 
-          <v-col cols="12">
-            <header>
-              Line Length
-            </header>
-            <v-slider
-              v-model="settings.line_length"
-              :max="40"
-              :min="0"
-              class="align-left"
-              :thumb-size="12"
-              thumb-label
-              step="1"
-              ticks
-            >
-            </v-slider>
-          <v-tooltip bottom>      
-            <template v-slot:activator="{ on, attrs }">        
-              <v-btn          
-                color="red lighten-2"          
-                dark          
-                v-bind="attrs"          
-                v-on="on"        
-                >          
-                Tips        
-                </v-btn>      
-               </template>      
-            <span>
-              Pick a tree: Which default tree do you want to start with?<br>
-              Iterations: How many times will productions be applied?<br>
-              Rotation: At what angle should the branches diverge?<br>
-              Line Length: How long should the branches be?
-            </span>    
-          </v-tooltip>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-  </v-card>
+              <v-card-subtitle>
+                {{ this.tree_selected.simple_description }}
+              </v-card-subtitle>
 
-<v-simple-table dense class="e5">
-    <template v-slot:default>
-      <tbody>
-        <tr style="text-align:left">
-          <td style="width:50%">Axiom:</td>
-          <td>{{ settings.axiom }}</td>
-        </tr>
-        <tr style="text-align:left">
-          <td style="width:50%">Production:</td>
-          <td>{{ settings.prod_str }}</td>  
-        </tr>
-        <tr style="text-align:left">
-          <td style="width:50%">Angle of Rotation:</td>
-          <td>{{ settings.angle + "°" }}</td>
-        </tr>
-        <tr style="text-align:left">
-          <td style="width:50%">Number of Iterations:</td>
-          <td>{{ settings.iterations }}</td>
-        </tr>
-        <tr style="text-align:left">
-          <td style="width:50%">Length of Initial Line:</td>
-          <td>{{ settings.line_length }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
-  <v-card
-    class="mx-auto"
-    max-width="344"
-    outlined
-  >
-    <v-card-title>
-      {{ this.tree_selected.text }}
-    </v-card-title>
+              <v-card-actions>
+                <v-tooltip left>
+                  <template v-slot:activator="{ on }">        
+                    <v-btn 
+                      v-on="on"
+                      color="orange lighten-2"
+                      outlined
+                      rounded
+                      text
+                      @click="show_card = !show_card"
+                    >
+                      Details
+                    </v-btn>
+                  </template>
+                  <span>More about this<br>type of tree!</span>
+                </v-tooltip>
+              </v-card-actions>
 
-    <v-card-subtitle>
-      {{ this.tree_selected.simple_description }}
-    </v-card-subtitle>
+              <v-expand-transition>
+                <div v-show="show_card">
+                  <v-divider></v-divider>
 
-    <v-card-actions>
-      <v-tooltip left>
-        <template v-slot:activator="{ on }">        
-          <v-btn 
-            v-on="on"
-            color="orange lighten-2"
-            outlined
-            rounded
-            text
-            @click="show_card = !show_card"
-          >
-            Details
-          </v-btn>
-        </template>
-        <span>More about this<br>type of tree!</span>
-      </v-tooltip>
-    </v-card-actions>
-
-    <v-expand-transition>
-      <div v-show="show_card">
-        <v-divider></v-divider>
-
-        <v-card-text>
-          {{ this.tree_selected.extended_description }}
-        </v-card-text>
-      </div>
-    </v-expand-transition>
-
-    <v-tooltip left>
-      <template v-slot:activator="{ on }">
-        <v-btn
-          v-on="on"
-          color="orange lighten-2"
-          outlined
-          rounded
-          text
-          @click="submit();"
-          id="btn_run"
-        >
-          Run
-        </v-btn>
-      </template>
-      <span>Apply settings and <br>show your tree!</span>
-    </v-tooltip>
-  </v-card>
-    <canvas id="canvas" ref="lcanvas" width="1000" height="1000" style="border: 1px solid black;">
-    </canvas>
-  </div>
+                  <v-card-text>
+                    {{ this.tree_selected.extended_description }}
+                  </v-card-text>
+                </div>
+              </v-expand-transition>
+            </v-card>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-main>
+  </v-app>
 </template>
 
 
