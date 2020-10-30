@@ -61,7 +61,7 @@
           >
 
           <v-tooltip left>
-            <template v-slot:acivator="{ on }">
+            <template v-slot:activator="{ on }">
               <div id="wrapper">
                 <v-select
                   v-on="on"
@@ -74,7 +74,7 @@
               </div>
             </template>
             <span>Choose your fractal</span>
-          ></v-tooltip>
+          </v-tooltip>
 
           </v-col>
           <v-col cols="12">
@@ -144,6 +144,25 @@
               </template>
             <span>How long should the <br>branches be?</span>
           </v-tooltip>
+          <template>  
+            <div class="text-center d-flex align-center justify-space-around">
+              <v-tooltip bottom>      
+                <template v-slot:activator="{ on, attrs }">        
+                  <v-btn          
+                  color="red lighten-2"          
+                  dark          
+                  v-bind="attrs"          
+                  v-on="on"        
+                  >          
+                  ?        
+                  </v-btn>      
+                  </template>      
+                <span>
+                  Rotation: <br>
+                  Line Length: How long should the branches be?</span>    
+              </v-tooltip>
+            </div>
+          </template>  
           </v-col>
         </v-row>
       </v-container>
