@@ -60,21 +60,13 @@
             sm="12"
           >
 
-          <v-tooltip left>
-            <template v-slot:acivator="{ on }">
-              <div id="wrapper">
                 <v-select
-                  v-on="on"
                   v-model="tree_selected"
                   :items="tree_list"
                   label="Pick a tree"
                   @change="tree_change(); submit();"
                   return-object
                 ></v-select>
-              </div>
-            </template>
-            <span>Choose your fractal</span>
-          ></v-tooltip>
 
           </v-col>
           <v-col cols="12">
