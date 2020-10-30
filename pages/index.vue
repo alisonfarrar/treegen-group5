@@ -35,7 +35,17 @@
             These trees are built iteratively by feeding the axiom through a set of production rules. 
             At each iteration, each letter (or ‘predecessor‘) in the axiom is replaced by a string of letters, the ‘successor‘. 
             We’ve provided a set of examples so you can see this system in action, but feel free to 
-            adjust the parameters to see what shapes you can generate yourself! </p>
+            adjust the parameters to see what shapes you can generate yourself! 
+            </br>
+            </br>
+            Interested in joining our team? Check out our
+              <a href="https://github.com/alisonfarrar/treegen-group5" 
+                class = "github-link"
+                >
+                  GitHub repository! 
+              </a>
+            </p>
+            
         </v-card-text>
 
         <v-card-actions>
@@ -59,82 +69,80 @@
             cols="12"
             sm="12"
           >
-
-                <v-select
-                  v-model="tree_selected"
-                  :items="tree_list"
-                  label="Pick a tree"
-                  @change="tree_change(); submit();"
-                  return-object
-                ></v-select>
-
+          <v-select
+            v-model="tree_selected"
+            :items="tree_list"
+            label="Pick a tree"
+            @change="tree_change(); submit();"
+            return-object
+          ></v-select>
           </v-col>
           <v-col cols="12">
             <header>
               Iterations
             </header>
-            <v-tooltip left>
-              <template v-slot:activator="{ on }">
-                <v-slider
-                  v-on="on"
-                  v-model="settings.iterations"
-                  :max="10"
-                  :min="0"
-                  class="align-left"
-                  :thumb-size="12"
-                  thumb-label
-                  step="1"
-                  ticks
-                >
-                </v-slider>
-              </template>
-            <span>How many times should the <br>production rules be applied?</span>
-          </v-tooltip>
+            <v-slider
+              v-model="settings.iterations"
+              :max="10"
+              :min="0"
+              class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="1"
+              ticks
+              >
+            </v-slider>
           </v-col>
 
           <v-col cols="12">
             <header>
               Rotation (˚)
             </header>
-            <v-tooltip left>
-              <template v-slot:activator="{ on }">
-                <v-slider
-                  v-on="on"
-                  v-model="settings.angle"
-                  :max="180"
-                  :min="0"
-                  class="align-left"
-                  :thumb-size="12"
-                  thumb-label
-                  step="0.1"
-                  ticks
-                >
-                </v-slider>
-              </template>
-            <span>At what angle should <br>branches diverge?</span>
-          </v-tooltip>
+            <v-slider
+              v-model="settings.angle"
+              :max="180"
+              :min="0"
+              class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="0.1"
+              ticks
+            >
+            </v-slider>
           </v-col>
 
           <v-col cols="12">
             <header>
               Line Length
             </header>
-            <v-tooltip left>
-              <template v-slot:activator="{ on }">
-                <v-slider
-                  v-on="on"
-                  v-model="settings.line_length"
-                  :max="40"
-                  :min="0"
-                  class="align-left"
-                  :thumb-size="12"
-                  thumb-label
-                  step="1"
-                  ticks
-                >
-                </v-slider>
-              </template>
-            <span>How long should the <br>branches be?</span>
+            <v-slider
+              v-model="settings.line_length"
+              :max="40"
+              :min="0"
+              class="align-left"
+              :thumb-size="12"
+              thumb-label
+              step="1"
+              ticks
+            >
+            </v-slider>
+          <v-tooltip bottom>      
+            <template v-slot:activator="{ on, attrs }">        
+              <v-btn          
+                color="red lighten-2"          
+                dark          
+                v-bind="attrs"          
+                v-on="on"        
+                >          
+                Tips        
+                </v-btn>      
+               </template>      
+            <span>
+              Pick a tree: Which default tree do you want to start with?<br>
+              Iterations: How many times will productions be applied?<br>
+              Rotation: At what angle should the branches diverge?<br>
+              Line Length: How long should the branches be?
+            </span>    
           </v-tooltip>
           </v-col>
         </v-row>
@@ -195,7 +203,7 @@
             Details
           </v-btn>
         </template>
-        <span>Get more info on <br>this type of tree!</span>
+        <span>More about this<br>type of tree!</span>
       </v-tooltip>
     </v-card-actions>
 
