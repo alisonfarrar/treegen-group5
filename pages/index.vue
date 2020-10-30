@@ -106,7 +106,7 @@
                   class="align-left"
                   :thumb-size="12"
                   thumb-label
-                  step="0.5"
+                  step="0.1"
                   ticks
                 >
                 </v-slider>
@@ -124,7 +124,7 @@
                 <v-slider
                   v-on="on"
                   v-model="settings.line_length"
-                  :max="10"
+                  :max="40"
                   :min="0"
                   class="align-left"
                   :thumb-size="12"
@@ -249,13 +249,41 @@
           prod_str: "'F -> FF'",
           iterations: 5,
           angle: 22.5,
-          line_length: 4,
+          line_length: 40,
         },
         dialog: false,
         show_card: false,
         tree_word: '',
         tree_selected: Object.assign({}, this.settings),
         tree_list: [
+            {
+            text: "Budding Branch",
+            simple_description: "Spring is here!",
+            extended_description: "Soon I will be covered in leaves! Example 1.24a) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'F'",
+              prod_keys: ['F'],
+              prod_values: ['F[+F]F[-F]F'],
+              prod_str: "'F -> F[+F]F[-F]F'",
+              iterations: 5,
+              angle: 25.7,
+              line_length: 15,
+              }
+            },
+            {
+            text: "Windswept Tuft",
+            simple_description: "Watch me move in the wind!",
+            extended_description: "The autumn storms have arrived! Example 1.24b) from 'The Algorithmic Beauty of Plants'",
+            defaults: {
+              axiom: "'F'",
+              prod_keys: ['F'],
+              prod_values: ['F[+F]F[-F][F]'],
+              prod_str: "'F -> F[+F]F[-F][F]'",
+              iterations: 5,
+              angle: 20,
+              line_length: 40,
+            }
+          },
           {
             text: "Bifurcating Bush",
             simple_description: "I am a bush.",
@@ -268,20 +296,6 @@
               iterations: 4,
               angle: 22.5,
               line_length: 40,
-            }
-          },
-          {
-            text: "Stabby Sprig",
-            simple_description: "Don't touch me!",
-            extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
-            defaults: {
-              axiom: "'X'",
-              prod_keys: ['X', 'F'],
-              prod_values: ['F[+X][-X]FX', 'FF'],
-              prod_str: "'X -> F[+X][-X]FX', 'F -> FF'",
-              iterations: 7,
-              angle: 25.7,
-              line_length: 20,
             }
           },
           {
@@ -298,32 +312,18 @@
               line_length: 20,
               }
             },
-            {
-            text: "Budding Branch",
-            simple_description: "Spring is here!",
-            extended_description: "Soon I will be covered in leaves! Example 1.24a) from 'The Algorithmic Beauty of Plants'",
+          {
+            text: "Stabby Sprig",
+            simple_description: "Don't touch me!",
+            extended_description: "Some call me dangerous, but I know I am the best. Example 1.24e) from 'The Algorithmic Beauty of Plants'",
             defaults: {
-              axiom: "'F'",
-              prod_keys: ['F'],
-              prod_values: ['F[+F]F[-F]F'],
-              prod_str: "'F -> F[+F]F[-F]F'",
-              iterations: 5,
+              axiom: "'X'",
+              prod_keys: ['X', 'F'],
+              prod_values: ['F[+X][-X]FX', 'FF'],
+              prod_str: "'X -> F[+X][-X]FX', 'F -> FF'",
+              iterations: 7,
               angle: 25.7,
               line_length: 20,
-              }
-            },
-            {
-            text: "Windswept Tuft",
-            simple_description: "Watch me move in the wind!",
-            extended_description: "The autumn storms have arrived! Example 1.24b) from 'The Algorithmic Beauty of Plants'",
-            defaults: {
-              axiom: "'F'",
-              prod_keys: ['F'],
-              prod_values: ['F[+F]F[-F][F]'],
-              prod_str: "'F -> F[+F]F[-F][F]'",
-              iterations: 5,
-              angle: 20,
-              line_length: 40,
             }
           },
         ],
